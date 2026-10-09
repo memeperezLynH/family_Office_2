@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi Hogar Seguro — Wireframes de baja fidelidad</title>
+<style>
+  :root{
+    --negro:#000;
+    --gris-1:#f2f2f2;
+    --gris-2:#e0e0e0;
+    --gris-3:#bdbdbd;
+    --gris-4:#777;
+    --blanco:#fff;
+    --borde:2px solid #000;
+    --borde-fino:1px solid #999;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--gris-1);
+    color:var(--negro);
+    font-family:Arial, Helvetica, "Liberation Sans", sans-serif;
+    font-size:18px;
+    line-height:1.5;
+  }
+  .mono{font-family:"Courier New", Courier, monospace;}
+
+  /* ---------- Cintas superiores ---------- */
+  .cinta-proto{
+    background:var(--gris-2);
+    border-bottom:var(--borde);
+    padding:8px 24px;
+    font-family:"Courier New", Courier, monospace;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .conmutador{
+    display:flex;
+    gap:0;
+    border-bottom:var(--borde);
+    background:var(--blanco);
+  }
+  .conmutador button{
+    flex:0 0 auto;
+    border:none;
+    border-right:var(--borde);
+    background:var(--blanco);
+    padding:16px 28px;
+    font-size:17px;
+    font-family:"Courier New", Courier, monospace;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    cursor:pointer;
+  }
+  .conmutador button[aria-selected="true"]{background:var(--negro);color:var(--blanco);}
+  .conmutador button:focus-visible{outline:4px solid #555;outline-offset:-6px;}
+
+  /* ---------- Marco de aplicación ---------- */
+  .marco{max-width:1440px;margin:0 auto;padding:24px;}
+  .barra-superior{
+    border:var(--borde);
+    background:var(--blanco);
+    display:grid;
+    grid-template-columns:2fr 1.4fr 1.2fr 1fr;
+    align-items:stretch;
+  }
+  .barra-superior > div{padding:14px 18px;border-right:var(--borde-fino);}
+  .barra-superior > div:last-child{border-right:none;}
+  .marca{font-size:24px;font-weight:bold;letter-spacing:.02em;}
+  .marca small{display:block;font-weight:normal;font-size:15px;color:#333;}
+  .etq{
+    font-family:"Courier New", Courier, monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#444;
+    display:block;
+    margin-bottom:2px;
+  }
+
+  .cuerpo{display:grid;grid-template-columns:290px 1fr;gap:0;border:var(--borde);border-top:none;background:var(--blanco);}
+  nav.lateral{border-right:var(--borde);padding:0;}
+  nav.lateral h2{
+    font-family:"Courier New", Courier, monospace;
+    font-size:13px;text-transform:uppercase;letter-spacing:.08em;
+    margin:0;padding:12px 16px;border-bottom:var(--borde-fino);background:var(--gris-1);
+  }
+  nav.lateral button{
+    display:block;width:100%;text-align:left;
+    background:var(--blanco);border:none;border-bottom:var(--borde-fino);
+    padding:18px 16px;font-size:18px;cursor:pointer;font-family:inherit;
+  }
+  nav.lateral button:hover{background:var(--gris-1);}
+  nav.lateral button[aria-current="true"]{background:var(--negro);color:var(--blanco);font-weight:bold;}
+  nav.lateral button:focus-visible{outline:4px solid #555;outline-offset:-4px;}
+  main{padding:0;min-height:900px;}
+
+  /* ---------- Pantallas ---------- */
+  .pantalla{display:none;padding:28px 32px 48px;}
+  .pantalla.activa{display:block;}
+  .ruta{
+    font-family:"Courier New", Courier, monospace;
+    font-size:14px;color:#444;text-transform:uppercase;letter-spacing:.05em;
+    border-bottom:var(--borde-fino);padding-bottom:10px;margin-bottom:20px;
+  }
+  h1{font-size:34px;margin:0 0 6px;}
+  h2.seccion{font-size:22px;margin:36px 0 12px;border-bottom:var(--borde);padding-bottom:6px;}
+  h3{font-size:19px;margin:0 0 8px;}
+  p.sub{font-size:20px;margin:0 0 24px;color:#222;}
+  p{margin:0 0 14px;}
+
+  /* ---------- Cajas ---------- */
+  .caja{border:var(--borde);padding:20px;background:var(--blanco);margin-bottom:20px;}
+  .caja-gris{background:var(--gris-1);}
+  .caja-punteada{border:2px dashed #777;}
+  .rejilla-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .rejilla-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+  .rejilla-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .cifra{font-size:40px;font-weight:bold;line-height:1.1;margin:6px 0;}
+  .cifra-media{font-size:28px;font-weight:bold;margin:4px 0;}
+
+  /* ---------- Botones ---------- */
+  .btn{
+    display:inline-block;border:var(--borde);background:var(--blanco);color:var(--negro);
+    padding:16px 22px;font-size:18px;font-family:inherit;cursor:pointer;
+    min-height:60px;min-width:180px;text-align:center;margin:0 12px 12px 0;
+  }
+  .btn:hover{background:var(--gris-2);}
+  .btn:focus-visible{outline:4px solid #555;outline-offset:3px;}
+  .btn-principal{background:var(--negro);color:var(--blanco);font-weight:bold;}
+  .btn-principal:hover{background:#333;}
+  .btn-peq{min-height:46px;min-width:120px;padding:10px 14px;font-size:16px;}
+  .btn-ancho{display:block;width:100%;margin-bottom:14px;}
+  .fila-botones{display:flex;flex-wrap:wrap;gap:0;margin-top:8px;}
+
+  /* ---------- Estados ---------- */
+  .estado{
+    display:inline-block;border:var(--borde);padding:4px 10px;
+    font-family:"Courier New", Courier, monospace;font-size:13px;
+    text-transform:uppercase;letter-spacing:.08em;background:var(--blanco);
+  }
+  .estado-negro{background:var(--negro);color:var(--blanco);}
+  .estado-gris{background:var(--gris-2);}
+  .estado-rayado{background:repeating-linear-gradient(45deg,#fff,#fff 6px,#ddd 6px,#ddd 12px);}
+
+  /* ---------- Tablas ---------- */
+  table{width:100%;border-collapse:collapse;margin-bottom:16px;background:var(--blanco);}
+  th,td{border:var(--borde-fino);padding:14px 12px;text-align:left;font-size:17px;vertical-align:top;}
+  th{background:var(--gris-1);font-family:"Courier New", Courier, monospace;font-size:13px;text-transform:uppercase;letter-spacing:.06em;}
+  td.num{text-align:right;white-space:nowrap;}
+
+  /* ---------- Listas ---------- */
+  ul.lista{margin:0 0 14px;padding-left:22px;}
+  ul.lista li{margin-bottom:8px;}
+  ul.limpia{list-style:none;margin:0 0 14px;padding:0;}
+  ul.limpia li{margin-bottom:10px;padding-left:26px;position:relative;}
+  ul.limpia li .marca-si{position:absolute;left:0;font-weight:bold;}
+
+  /* ---------- Formularios ---------- */
+  label.campo{display:block;margin-bottom:18px;font-size:18px;}
+  label.campo .etq{margin-bottom:6px;}
+  input[type="text"],input[type="number"],select,textarea{
+    width:100%;border:var(--borde);padding:14px;font-size:18px;font-family:inherit;background:var(--blanco);
+  }
+  .opcion{
+    display:flex;align-items:flex-start;gap:14px;border:var(--borde);
+    padding:16px;margin-bottom:12px;background:var(--blanco);cursor:pointer;
+  }
+  .opcion input{width:26px;height:26px;margin-top:4px;flex:0 0 auto;}
+  .opcion:hover{background:var(--gris-1);}
+  .opcion .desc{font-size:15px;color:#444;display:block;margin-top:4px;}
+
+  /* ---------- Aviso / nota ---------- */
+  .nota{
+    border-left:8px solid var(--negro);background:var(--gris-1);
+    padding:16px 18px;margin:20px 0;font-size:17px;
+  }
+  .nota .etq{margin-bottom:4px;}
+  .placeholder{
+    border:2px dashed #777;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 8px,#eee 8px,#eee 16px);
+    padding:28px;text-align:center;font-family:"Courier New", Courier, monospace;
+    font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:#555;margin-bottom:20px;
+  }
+  .pasos{display:flex;gap:0;margin-bottom:24px;flex-wrap:wrap;}
+  .pasos div{
+    border:var(--borde);border-right:none;padding:10px 16px;
+    font-family:"Courier New", Courier, monospace;font-size:13px;text-transform:uppercase;
+    background:var(--blanco);
+  }
+  .pasos div:last-child{border-right:var(--borde);}
+  .pasos div.activo{background:var(--negro);color:var(--blanco);}
+
+  /* ---------- Documento ---------- */
+  .doc{max-width:1100px;margin:0 auto 60px;background:var(--blanco);border:var(--borde);padding:40px 48px;}
+  .doc h1{font-size:36px;border-bottom:var(--borde);padding-bottom:14px;}
+  .doc h2{font-size:26px;margin:40px 0 10px;border-bottom:var(--borde);padding-bottom:6px;}
+  .doc h3{font-size:20px;margin:26px 0 8px;}
+  .doc h4{font-family:"Courier New", Courier, monospace;font-size:14px;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;color:#333;}
+  .vista{display:none;}
+  .vista.activa{display:block;}
+  .pie{
+    max-width:1440px;margin:0 auto;padding:0 24px 40px;
+    font-family:"Courier New", Courier, monospace;font-size:13px;color:#444;text-transform:uppercase;letter-spacing:.06em;
+  }
+  @media (max-width:900px){
+    .cuerpo{grid-template-columns:1fr;}
+    nav.lateral{border-right:none;border-bottom:var(--borde);}
+    .rejilla-2,.rejilla-3,.rejilla-4{grid-template-columns:1fr;}
+    .barra-superior{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cinta-proto">Prototipo de baja fidelidad · Wireframes · Datos ficticios · No se ejecutan pagos ni se conectan cuentas reales</div>
+
+<div class="conmutador" role="tablist">
+  <button role="tab" aria-selected="true" onclick="verVista('proto',this)">A. Prototipo navegable</button>
+  <button role="tab" aria-selected="false" onclick="verVista('doc',this)">B. Mapa de necesidades y decisiones de diseño</button>
+</div>
+
+<!-- ================= VISTA PROTOTIPO ================= -->
+<div id="vista-proto" class="vista activa">
+<div class="marco">
+
+  <div class="barra-superior">
+    <div>
+      <div class="marca">MI HOGAR SEGURO
+        <small>Tu dinero, tus decisiones, tu hogar.</small>
+      </div>
+    </div>
+    <div>
+      <span class="etq">Usuario</span>
+      <strong>María Rodríguez</strong><br>
+      <span class="mono" style="font-size:14px;">Sesión iniciada — Banco Seguro (ficticio)</span>
+    </div>
+    <div>
+      <span class="etq">Estado de seguridad</span>
+      <span class="estado estado-negro">Protección activa</span><br>
+      <span class="mono" style="font-size:14px;">Conexión: correcta</span>
+    </div>
+    <div>
+      <span class="etq">Fecha y hora</span>
+      <strong>Martes 12 de agosto</strong><br>
+      <span class="mono" style="font-size:14px;">09:15</span>
+      <button class="btn btn-principal btn-peq" style="margin-top:10px;width:100%;" onclick="ir('ayuda')">NECESITO AYUDA</button>
+    </div>
+  </div>
+
+  <div class="cuerpo">
+    <nav class="lateral" aria-label="Navegación principal">
+      <h2>Menú</h2>
+      <button data-nav="inicio" onclick="ir('inicio')">INICIO</button>
+      <button data-nav="dinero" onclick="ir('dinero')">MI DINERO</button>
+      <button data-nav="pagos" onclick="ir('pagos')">PAGOS</button>
+      <button data-nav="hogar" onclick="ir('hogar')">MI HOGAR</button>
+      <button data-nav="empleados" onclick="ir('empleados')">EMPLEADOS Y PROVEEDORES</button>
+      <button data-nav="tarjeta" onclick="ir('tarjeta')">TARJETA Y BILLETERA</button>
+      <button data-nav="seguridad" onclick="ir('seguridad')">SEGURIDAD</button>
+      <button data-nav="familia" onclick="ir('familia')">FAMILIA Y AYUDA</button>
+      <button data-nav="actividad" onclick="ir('actividad')">ACTIVIDAD</button>
+      <button data-nav="ayuda" onclick="ir('ayuda')">AYUDA</button>
+      <button data-nav="config" onclick="ir('config')">CONFIGURACIÓN</button>
+      <div style="padding:16px;border-top:2px solid #000;">
+        <span class="etq">Principio</span>
+        <strong>La persona mayor es la dueña de sus decisiones.</strong>
+      </div>
+    </nav>
+
+    <main id="main">
+
+<!-- ===== INICIO ===== -->
+<section id="p-inicio" class="pantalla activa" data-nav="inicio">
+  <div class="ruta">Usted está en: Inicio</div>
+  <h1>Buenos días, María</h1>
+  <p class="sub">Todo está tranquilo. <span class="estado">Estado: normal</span></p>
+
+  <div class="caja">
+    <span class="etq">Dinero disponible</span>
+    <div class="cifra">$ 4.250.000</div>
+  </div>
+
+  <h2 class="seccion">Pendientes</h2>
+  <table>
+    <thead><tr><th>Concepto</th><th>Monto</th><th>Vence</th></tr></thead>
+    <tbody>
+      <tr><td>Energía</td><td class="num">$180.000</td><td>15 de agosto</td></tr>
+      <tr><td>Seguro de salud</td><td class="num">$320.000</td><td>18 de agosto</td></tr>
+      <tr><td>Alquiler</td><td class="num">$1.200.000</td><td>20 de agosto</td></tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-principal btn-ancho" style="min-height:96px;" onclick="ir('pagos')">IR A PAGAR</button>
+
+  <h2 class="seccion">Otras cosas</h2>
+  <div class="rejilla-4">
+    <button class="btn btn-ancho" onclick="ir('dinero')">MI DINERO</button>
+    <button class="btn btn-ancho" onclick="ir('hogar')">MI HOGAR</button>
+    <button class="btn btn-ancho" onclick="ir('tarjeta')">MI TARJETA</button>
+    <button class="btn btn-ancho" onclick="ir('seguridad')">SEGURIDAD</button>
+  </div>
+</section>
+
+<!-- ===== MI DINERO ===== -->
+<section id="p-dinero" class="pantalla" data-nav="dinero">
+  <div class="ruta">Usted está en: Inicio › Mi dinero</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Mi dinero</h1>
+  <p class="sub">Todo lo que entra y sale, explicado en palabras simples.</p>
+
+  <div class="rejilla-3">
+    <div class="caja"><span class="etq">Saldo total</span><div class="cifra-media">$ 5.600.000</div><p class="mono" style="font-size:14px;">Cuenta Banco Seguro ····4821</p></div>
+    <div class="caja"><span class="etq">Dinero disponible</span><div class="cifra-media">$ 4.250.000</div><p class="mono" style="font-size:14px;">Puede usarlo hoy</p></div>
+    <div class="caja caja-gris"><span class="etq">Reservado para pagos</span><div class="cifra-media">$ 1.350.000</div><p class="mono" style="font-size:14px;">Apartado para 4 pagos del mes</p></div>
+  </div>
+  <div class="rejilla-2">
+    <div class="caja"><span class="etq">Ingresos del mes</span><div class="cifra-media">+ $ 2.800.000</div><p>Pensión — recibida el 10 de agosto</p></div>
+    <div class="caja"><span class="etq">Gastos del mes</span><div class="cifra-media">– $ 2.100.000</div><p>Hogar, salud y nómina</p></div>
+  </div>
+
+  <h2 class="seccion">Movimientos</h2>
+  <div class="fila-botones">
+    <button class="btn btn-peq">TODOS</button>
+    <button class="btn btn-peq">INGRESOS</button>
+    <button class="btn btn-peq">GASTOS</button>
+    <button class="btn btn-peq">HOGAR</button>
+    <button class="btn btn-peq">SALUD</button>
+  </div>
+  <table>
+    <thead><tr><th>Fecha</th><th>Concepto</th><th>Categoría</th><th>Monto</th><th>Estado</th><th>Detalle</th></tr></thead>
+    <tbody>
+      <tr><td>10 ago</td><td>Pensión</td><td>Ingreso</td><td class="num">+$2.800.000</td><td><span class="estado">Recibido</span></td><td><button class="btn btn-peq" onclick="ir('dinero-detalle')">VER DETALLE</button></td></tr>
+      <tr><td>11 ago</td><td>Energía</td><td>Hogar</td><td class="num">-$180.000</td><td><span class="estado">Pagado</span></td><td><button class="btn btn-peq" onclick="ir('dinero-detalle')">VER DETALLE</button></td></tr>
+      <tr><td>12 ago</td><td>Farmacia</td><td>Salud</td><td class="num">-$90.000</td><td><span class="estado">Pagado</span></td><td><button class="btn btn-peq" onclick="ir('dinero-detalle')">VER DETALLE</button></td></tr>
+      <tr><td>12 ago</td><td>Transferencia a Juan Pérez</td><td>Sin categoría</td><td class="num">-$2.500.000</td><td><span class="estado estado-rayado">En revisión</span></td><td><button class="btn btn-peq" onclick="ir('seguridad-zona')">VER DETALLE</button></td></tr>
+      <tr><td>09 ago</td><td>Nómina Laura Gómez</td><td>Empleados</td><td class="num">-$850.000</td><td><span class="estado">Programado</span></td><td><button class="btn btn-peq" onclick="ir('empleado-nomina')">VER DETALLE</button></td></tr>
+    </tbody>
+  </table>
+  <div class="nota"><span class="etq">Aclaración</span>El movimiento marcado como «En revisión» todavía no ha salido de su cuenta.</div>
+</section>
+
+<!-- ===== DETALLE DE MOVIMIENTO ===== -->
+<section id="p-dinero-detalle" class="pantalla" data-nav="dinero">
+  <div class="ruta">Usted está en: Inicio › Mi dinero › Detalle del movimiento</div>
+  <button class="btn btn-peq" onclick="ir('dinero')">← VOLVER A MI DINERO</button>
+  <h1>Pago de energía</h1>
+  <p class="sub">– $180.000 · <span class="estado">Pagado</span></p>
+
+  <div class="caja">
+    <table>
+      <tbody>
+        <tr><th style="width:34%">¿Qué ocurrió?</th><td>Se pagó la factura de energía del hogar.</td></tr>
+        <tr><th>¿Cuándo ocurrió?</th><td>11 de agosto, 10:32</td></tr>
+        <tr><th>¿Desde qué cuenta?</th><td>Banco Seguro ····4821 (cuenta principal)</td></tr>
+        <tr><th>¿Hacia dónde fue?</th><td>Empresa de Energía del Sur — destinatario habitual desde hace 3 años</td></tr>
+        <tr><th>¿Quién lo autorizó?</th><td>María Rodríguez (usted), desde este computador</td></tr>
+        <tr><th>¿Hubo intervención de seguridad?</th><td>No. El pago coincidía con su historial habitual.</td></tr>
+        <tr><th>¿Algún familiar fue avisado?</th><td>No. Sus reglas no piden aviso para pagos habituales.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fila-botones">
+    <button class="btn" onclick="ir('pagos-comprobante')">VER COMPROBANTE</button>
+    <button class="btn">IMPRIMIR</button>
+    <button class="btn">GUARDAR EN MIS DOCUMENTOS</button>
+    <button class="btn" onclick="ir('ayuda')">NO RECONOZCO ESTE MOVIMIENTO</button>
+  </div>
+</section>
+
+<!-- ===== PAGOS ===== -->
+<section id="p-pagos" class="pantalla" data-nav="pagos">
+  <div class="ruta">Usted está en: Inicio › Pagos</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Pagar y organizar</h1>
+  <p class="sub">Todo lo que hay que pagar este mes, en un solo lugar.</p>
+
+  <div class="rejilla-3">
+    <div class="caja"><span class="etq">Total del mes</span><div class="cifra-media">$ 3.450.000</div></div>
+    <div class="caja"><span class="etq">Ya pagado</span><div class="cifra-media">$ 2.100.000</div></div>
+    <div class="caja caja-gris"><span class="etq">Pendiente</span><div class="cifra-media">$ 1.350.000</div></div>
+  </div>
+
+  <h2 class="seccion">Pagos pendientes</h2>
+  <div class="caja" style="padding:0;">
+    <table style="margin:0;">
+      <thead><tr><th>Concepto</th><th>Monto</th><th>Fecha</th><th>Tipo</th><th>Acción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LUZ</strong><br><span class="mono" style="font-size:14px;">Energía del hogar</span></td><td class="num">$180.000</td><td>Vence 15 agosto</td><td>Habitual</td><td><button class="btn btn-peq btn-principal" onclick="prepararPago('luz')">PAGAR</button></td></tr>
+        <tr><td><strong>AGUA</strong><br><span class="mono" style="font-size:14px;">Acueducto</span></td><td class="num">$90.000</td><td>Vence 18 agosto</td><td>Habitual</td><td><button class="btn btn-peq btn-principal" onclick="prepararPago('agua')">PAGAR</button></td></tr>
+        <tr><td><strong>SEGURO DE SALUD</strong></td><td class="num">$320.000</td><td>Vence 18 agosto</td><td>Habitual</td><td><button class="btn btn-peq btn-principal" onclick="prepararPago('seguro')">PAGAR</button></td></tr>
+        <tr><td><strong>ARRIENDO</strong></td><td class="num">$1.200.000</td><td>Vence 20 agosto</td><td>Habitual</td><td><button class="btn btn-peq btn-principal" onclick="prepararPago('arriendo')">PAGAR</button></td></tr>
+        <tr><td><strong>EMPLEADA DEL HOGAR</strong><br><span class="mono" style="font-size:14px;">Laura Gómez · nómina + seguridad social</span></td><td class="num">$850.000</td><td>Pago mensual · 30 agosto</td><td>Nómina</td><td><button class="btn btn-peq" onclick="ir('empleado-nomina')">REVISAR</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rejilla-2">
+    <div class="caja">
+      <h3>¿Prefiere pagar varias cosas de una vez?</h3>
+      <p>Se pagan una por una, en el mismo orden que usted elija, y siempre revisa antes de confirmar.</p>
+      <button class="btn" onclick="ir('pagos-multiple')">PAGAR VARIAS COSAS</button>
+    </div>
+    <div class="caja caja-gris">
+      <h3>Pagos guardados para después</h3>
+      <p><strong>1 pago preparado y no realizado:</strong> Agua — $90.000</p>
+      <button class="btn" onclick="prepararPago('agua')">CONTINUAR ESE PAGO</button>
+    </div>
+  </div>
+
+  <div class="nota">
+    <span class="etq">Cómo trabajamos</span>
+    Aquí no hay cuentas atrás ni mensajes de urgencia. Si una fecha se acerca, se lo recordamos con calma y le explicamos las opciones.
+  </div>
+</section>
+
+<!-- ===== PAGAR VARIAS COSAS ===== -->
+<section id="p-pagos-multiple" class="pantalla" data-nav="pagos">
+  <div class="ruta">Usted está en: Inicio › Pagos › Pagar varias cosas</div>
+  <button class="btn btn-peq" onclick="ir('pagos')">← VOLVER A PAGOS</button>
+  <h1>Pagar varias cosas</h1>
+  <p class="sub">Paso 1 de 3: elija qué quiere pagar. Puede detenerse cuando quiera.</p>
+  <div class="pasos"><div class="activo">1. Elegir</div><div>2. Revisar</div><div>3. Confirmar</div></div>
+
+  <label class="opcion"><input type="checkbox" checked><span><strong>LUZ — $180.000</strong><span class="desc">Vence 15 agosto · destinatario habitual</span></span></label>
+  <label class="opcion"><input type="checkbox"><span><strong>AGUA — $90.000</strong><span class="desc">Vence 18 agosto · destinatario habitual</span></span></label>
+  <label class="opcion"><input type="checkbox"><span><strong>SEGURO DE SALUD — $320.000</strong><span class="desc">Vence 18 agosto · destinatario habitual</span></span></label>
+  <label class="opcion"><input type="checkbox"><span><strong>ARRIENDO — $1.200.000</strong><span class="desc">Vence 20 agosto · destinatario habitual</span></span></label>
+
+  <div class="caja caja-gris"><span class="etq">Seleccionado</span><div class="cifra-media">$ 180.000</div><p>1 pago elegido. Después de este paso podrá revisar cada uno por separado.</p></div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="prepararPago('luz')">CONTINUAR</button>
+    <button class="btn" onclick="ir('pagos-despues')">GUARDAR PARA DESPUÉS</button>
+    <button class="btn" onclick="ir('pagos')">CANCELAR</button>
+  </div>
+</section>
+
+<!-- ===== REVISAR PAGO ===== -->
+<section id="p-pagos-revisar" class="pantalla" data-nav="pagos">
+  <div class="ruta">Usted está en: Inicio › Pagos › Revisar pago</div>
+  <button class="btn btn-peq" onclick="ir('pagos')">← VOLVER A PAGOS</button>
+  <h1>Revise antes de pagar</h1>
+  <p class="sub">Todavía <strong>no</strong> se ha enviado dinero. Nada ocurre hasta que usted confirme.</p>
+  <div class="pasos"><div>1. Elegir</div><div class="activo">2. Revisar</div><div>3. Confirmar</div></div>
+
+  <div class="caja">
+    <span class="etq">Qué va a pasar</span>
+    <h3 id="rev-titulo">Pago de energía del hogar</h3>
+    <table>
+      <tbody>
+        <tr><th style="width:34%">¿A quién se enviará?</th><td id="rev-destinatario">Empresa de Energía del Sur</td></tr>
+        <tr><th>¿Cuánto?</th><td><strong id="rev-monto">$180.000</strong></td></tr>
+        <tr><th>¿Cuándo?</th><td id="rev-cuando">Hoy, 12 de agosto, en cuanto usted confirme</td></tr>
+        <tr><th>¿Desde qué cuenta?</th><td>Banco Seguro ····4821 — quedarán $4.070.000 disponibles</td></tr>
+        <tr><th>¿Es un pago habitual?</th><td id="rev-habitual">Sí. Usted paga a este destinatario todos los meses desde 2022.</td></tr>
+        <tr><th>¿Hay alguna señal de riesgo?</th><td id="rev-riesgo">No detectamos señales de riesgo en este pago.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja caja-punteada">
+    <span class="etq">Componente «Lo puede revisar después»</span>
+    <p><strong>Este pago está preparado, pero todavía NO se ha realizado.</strong></p>
+    <p>Si prefiere pensarlo, lo guardamos tal como está y usted lo continúa cuando quiera. No hay penalización ni pérdida de progreso.</p>
+    <div class="fila-botones">
+      <button class="btn btn-principal" onclick="ir('pagos-comprobante')">CONFIRMAR PAGO</button>
+      <button class="btn" onclick="ir('pagos-despues')">GUARDAR PARA DESPUÉS</button>
+      <button class="btn" onclick="ir('pagos')">CAMBIAR</button>
+      <button class="btn" onclick="ir('pagos')">CANCELAR</button>
+    </div>
+  </div>
+
+  <div class="fila-botones">
+    <button class="btn" onclick="ir('ayuda-asistente')">PREGUNTAR AL ASISTENTE</button>
+    <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA</button>
+    <button class="btn" onclick="ir('familia')">PEDIR OPINIÓN A MI FAMILIA</button>
+  </div>
+</section>
+
+<!-- ===== GUARDADO PARA DESPUÉS ===== -->
+<section id="p-pagos-despues" class="pantalla" data-nav="pagos">
+  <div class="ruta">Usted está en: Inicio › Pagos › Guardado para después</div>
+  <h1>Guardado. No se envió dinero.</h1>
+  <p class="sub"><span class="estado">Estado: pendiente</span> Su pago quedó preparado exactamente como estaba.</p>
+
+  <div class="caja">
+    <table>
+      <tbody>
+        <tr><th style="width:34%">Qué pasó</th><td>Usted decidió revisarlo más tarde. El pago quedó guardado.</td></tr>
+        <tr><th>Qué significa</th><td>El dinero sigue en su cuenta. El destinatario no ha recibido nada.</td></tr>
+        <tr><th>Qué puede hacer</th><td>Continuarlo hoy, mañana o cuando quiera. También puede cancelarlo.</td></tr>
+        <tr><th>Fecha límite</th><td>La factura vence el 15 de agosto. Se lo recordaremos sin insistir.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('pagos-revisar')">CONTINUAR ESTE PAGO</button>
+    <button class="btn" onclick="ir('pagos')">VER TODOS MIS PAGOS</button>
+    <button class="btn" onclick="ir('inicio')">VOLVER A INICIO</button>
+  </div>
+</section>
+
+<!-- ===== COMPROBANTE ===== -->
+<section id="p-pagos-comprobante" class="pantalla" data-nav="pagos">
+  <div class="ruta">Usted está en: Inicio › Pagos › Revisar pago › Comprobante</div>
+  <h1>Pago realizado</h1>
+  <p class="sub"><span class="estado estado-negro">Confirmado</span> El dinero salió de su cuenta.</p>
+  <div class="pasos"><div>1. Elegir</div><div>2. Revisar</div><div class="activo">3. Confirmado</div></div>
+
+  <div class="caja">
+    <span class="etq">Comprobante ficticio Nº 00-482-2026</span>
+    <table>
+      <tbody>
+        <tr><th style="width:34%">Concepto</th><td id="comp-titulo">Energía del hogar</td></tr>
+        <tr><th>Destinatario</th><td id="comp-destinatario">Empresa de Energía del Sur</td></tr>
+        <tr><th>Monto</th><td><strong id="comp-monto">$180.000</strong></td></tr>
+        <tr><th>Cuenta de origen</th><td>Banco Seguro ····4821</td></tr>
+        <tr><th>Fecha y hora</th><td>12 de agosto, 09:20</td></tr>
+        <tr><th>Autorizado por</th><td>María Rodríguez</td></tr>
+        <tr><th>Saldo después del pago</th><td>$4.070.000 disponibles</td></tr>
+        <tr><th>Aviso a familiares</th><td>Ninguno. Este pago es habitual y sus reglas no piden aviso.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn">IMPRIMIR COMPROBANTE</button>
+    <button class="btn">GUARDAR EN MIS DOCUMENTOS</button>
+    <button class="btn">ENVIAR POR CORREO</button>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('pagos')">VOLVER A PAGOS</button>
+    <button class="btn" onclick="ir('inicio')">IR A INICIO</button>
+  </div>
+</section>
+
+<!-- ===== MI HOGAR ===== -->
+<section id="p-hogar" class="pantalla" data-nav="hogar">
+  <div class="ruta">Usted está en: Inicio › Mi hogar</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Administrar mi hogar</h1>
+  <p class="sub">Servicios, personas, seguros y documentos del hogar.</p>
+  <button class="btn btn-principal" onclick="ir('hogar-contacto')">PEDIR AYUDA A UN CONTACTO</button>
+
+  <div class="rejilla-3">
+    <div class="caja"><span class="etq">Pagos del mes</span><div class="cifra-media">$ 3.450.000</div></div>
+    <div class="caja"><span class="etq">Pagados</span><div class="cifra-media">$ 2.100.000</div><p class="mono" style="font-size:14px;">6 de 9 obligaciones</p></div>
+    <div class="caja caja-gris"><span class="etq">Pendientes</span><div class="cifra-media">$ 1.350.000</div><p class="mono" style="font-size:14px;">3 obligaciones</p></div>
+  </div>
+
+  <h2 class="seccion">Próximos vencimientos</h2>
+  <table>
+    <thead><tr><th>Concepto</th><th>Tipo</th><th>Monto</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Energía</td><td>Servicio público</td><td class="num">$180.000</td><td>15 ago</td><td><span class="estado">Pendiente</span></td><td><button class="btn btn-peq" onclick="prepararPago('luz')">PAGAR</button></td></tr>
+      <tr><td>Agua</td><td>Servicio público</td><td class="num">$90.000</td><td>18 ago</td><td><span class="estado">Guardado</span></td><td><button class="btn btn-peq" onclick="prepararPago('agua')">CONTINUAR</button></td></tr>
+      <tr><td>Seguro de salud</td><td>Seguro</td><td class="num">$320.000</td><td>18 ago</td><td><span class="estado">Pendiente</span></td><td><button class="btn btn-peq" onclick="prepararPago('seguro')">PAGAR</button></td></tr>
+      <tr><td>Arriendo</td><td>Vivienda</td><td class="num">$1.200.000</td><td>20 ago</td><td><span class="estado">Pendiente</span></td><td><button class="btn btn-peq" onclick="prepararPago('arriendo')">PAGAR</button></td></tr>
+      <tr><td>Nómina Laura Gómez</td><td>Empleados</td><td class="num">$850.000</td><td>30 ago</td><td><span class="estado">Programado</span></td><td><button class="btn btn-peq" onclick="ir('empleado-nomina')">REVISAR</button></td></tr>
+      <tr><td>Seguridad social Laura Gómez</td><td>Obligación legal</td><td class="num">$210.000</td><td>30 ago</td><td><span class="estado">Programado</span></td><td><button class="btn btn-peq" onclick="ir('empleado-nomina')">REVISAR</button></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="seccion">Áreas del hogar</h2>
+  <div class="rejilla-4">
+    <div class="caja"><h3>Empleados</h3><p>1 persona activa</p><button class="btn btn-peq" onclick="ir('empleados')">ABRIR</button></div>
+    <div class="caja"><h3>Proveedores</h3><p>4 registrados</p><button class="btn btn-peq" onclick="ir('empleados')">ABRIR</button></div>
+    <div class="caja"><h3>Servicios y seguros</h3><p>5 contratos</p><button class="btn btn-peq">ABRIR</button></div>
+    <div class="caja"><h3>Documentos</h3><p>Contratos, recibos, pólizas</p><button class="btn btn-peq">ABRIR</button></div>
+  </div>
+  <div class="nota"><span class="etq">Autonomía</span>Un familiar o un administrador puede <strong>preparar</strong> estos pagos, pero la confirmación final siempre es suya, salvo que usted decida lo contrario y lo deje por escrito en sus permisos.</div>
+</section>
+<!-- ===== MI HOGAR: PEDIR AYUDA A UN CONTACTO ===== -->
+<section id="p-hogar-contacto" class="pantalla" data-nav="hogar">
+  <div class="ruta">Usted está en: Inicio › Mi hogar › Pedir ayuda</div>
+  <button class="btn btn-peq" onclick="ir('hogar')">← VOLVER A MI HOGAR</button>
+  <h1>¿A quién quiere pedir ayuda?</h1>
+  <p class="sub">Su contacto recibe el aviso. Usted sigue decidiendo.</p>
+  <div class="caja">
+    <span class="etq">Contacto de confianza</span>
+    <h3>Ana Rodríguez (hija)</h3>
+    <div class="fila-botones">
+      <button class="btn btn-principal" onclick="document.getElementById('hogar-contacto-ok').style.display='block'">LLAMAR A ANA</button>
+      <button class="btn" onclick="document.getElementById('hogar-contacto-ok').style.display='block'">ESCRIBIRLE A ANA</button>
+    </div>
+  </div>
+  <div class="nota" id="hogar-contacto-ok" style="display:none;"><span class="etq">Aviso enviado</span>Ana recibió su pedido de ayuda. No se movió dinero.</div>
+  <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UN ASESOR</button>
+</section>
+
+
+<!-- ===== EMPLEADOS Y PROVEEDORES ===== -->
+<section id="p-empleados" class="pantalla" data-nav="empleados">
+  <div class="ruta">Usted está en: Inicio › Mi hogar › Empleados y proveedores</div>
+  <button class="btn btn-peq" onclick="ir('hogar')">← VOLVER A MI HOGAR</button>
+  <h1>Empleados del hogar</h1>
+  <p class="sub">Contratos, pagos, horas y documentos de las personas que trabajan en su casa.</p>
+
+  <div class="caja">
+    <div class="rejilla-2">
+      <div>
+        <h3>Laura Gómez</h3>
+        <p>Cuidadora · Contrato vigente desde marzo de 2023<br>
+        Pago mensual: <strong>$850.000</strong><br>
+        Próximo pago: <strong>30 de agosto</strong><br>
+        Seguridad social: al día</p>
+        <span class="estado">Estado: activa</span>
+      </div>
+      <div>
+        <span class="etq">Acciones</span>
+        <button class="btn btn-ancho" onclick="ir('empleado-perfil')">VER PERFIL</button>
+        <button class="btn btn-ancho" onclick="ir('empleado-nomina')">VER PAGOS</button>
+        <button class="btn btn-ancho">DOCUMENTOS</button>
+        <button class="btn btn-ancho">CONTRATO</button>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="seccion">Proveedores</h2>
+  <table>
+    <thead><tr><th>Proveedor</th><th>Servicio</th><th>Pago habitual</th><th>Frecuencia</th><th>Acción</th></tr></thead>
+    <tbody>
+      <tr><td>Empresa de Energía del Sur</td><td>Energía</td><td class="num">$180.000</td><td>Mensual</td><td><button class="btn btn-peq">VER</button></td></tr>
+      <tr><td>Acueducto Municipal</td><td>Agua</td><td class="num">$90.000</td><td>Mensual</td><td><button class="btn btn-peq">VER</button></td></tr>
+      <tr><td>Salud Tranquila (ficticio)</td><td>Seguro de salud</td><td class="num">$320.000</td><td>Mensual</td><td><button class="btn btn-peq">VER</button></td></tr>
+      <tr><td>Jardinería Los Pinos</td><td>Jardín</td><td class="num">$120.000</td><td>Quincenal</td><td><button class="btn btn-peq">VER</button></td></tr>
+    </tbody>
+  </table>
+  <button class="btn">AÑADIR UN PROVEEDOR</button>
+</section>
+
+<!-- ===== PERFIL DE EMPLEADA ===== -->
+<section id="p-empleado-perfil" class="pantalla" data-nav="empleados">
+  <div class="ruta">Usted está en: Inicio › Mi hogar › Empleados › Laura Gómez</div>
+  <button class="btn btn-peq" onclick="ir('empleados')">← VOLVER A EMPLEADOS</button>
+  <h1>Laura Gómez — Cuidadora</h1>
+  <p class="sub">Perfil laboral y permisos dentro de la aplicación.</p>
+
+  <div class="rejilla-2">
+    <div class="caja">
+      <span class="etq">Datos del contrato</span>
+      <table><tbody>
+        <tr><th>Inicio</th><td>1 de marzo de 2023</td></tr>
+        <tr><th>Jornada</th><td>Lunes a viernes, 8 horas</td></tr>
+        <tr><th>Salario</th><td>$850.000 mensuales</td></tr>
+        <tr><th>Seguridad social</th><td>$210.000 mensuales · al día</td></tr>
+        <tr><th>Vacaciones</th><td>7 días disponibles</td></tr>
+      </tbody></table>
+    </div>
+    <div class="caja">
+      <span class="etq">Qué puede hacer Laura en la aplicación</span>
+      <ul class="limpia">
+        <li><span class="marca-si">✓</span> Registrar sus horas de trabajo</li>
+        <li><span class="marca-si">✓</span> Consultar sus propios pagos de nómina</li>
+        <li><span class="marca-si">✓</span> Subir documentos (incapacidades, recibos)</li>
+        <li><span class="marca-si">✓</span> Confirmar el trabajo realizado</li>
+      </ul>
+      <span class="etq">Qué no puede hacer</span>
+      <ul class="limpia">
+        <li><span class="marca-si">✗</span> Ver su saldo total</li>
+        <li><span class="marca-si">✗</span> Ver otras cuentas ni otros pagos del hogar</li>
+        <li><span class="marca-si">✗</span> Mover dinero</li>
+        <li><span class="marca-si">✗</span> Cambiar permisos</li>
+      </ul>
+      <button class="btn" onclick="ir('familia-conceder')">CAMBIAR PERMISOS</button>
+      <button class="btn">REVOCAR ACCESO</button>
+    </div>
+  </div>
+
+  <h2 class="seccion">Horas registradas por Laura (agosto)</h2>
+  <table>
+    <thead><tr><th>Fecha</th><th>Horas</th><th>Registrado por</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>11 ago</td><td>8</td><td>Laura Gómez</td><td><span class="estado">Confirmado por usted</span></td></tr>
+      <tr><td>10 ago</td><td>8</td><td>Laura Gómez</td><td><span class="estado">Confirmado por usted</span></td></tr>
+      <tr><td>09 ago</td><td>6</td><td>Laura Gómez</td><td><span class="estado estado-gris">Pendiente de confirmar</span></td></tr>
+    </tbody>
+  </table>
+  <div class="fila-botones">
+    <button class="btn btn-principal">CONFIRMAR HORAS PENDIENTES</button>
+    <button class="btn" onclick="ir('empleado-nomina')">IR A LA NÓMINA</button>
+  </div>
+</section>
+
+<!-- ===== NÓMINA ===== -->
+<section id="p-empleado-nomina" class="pantalla" data-nav="empleados">
+  <div class="ruta">Usted está en: Inicio › Mi hogar › Empleados › Laura Gómez › Nómina</div>
+  <button class="btn btn-peq" onclick="ir('empleado-perfil')">← VOLVER AL PERFIL</button>
+  <h1>Nómina de agosto — Laura Gómez</h1>
+  <p class="sub"><span class="estado">Programado</span> Se pagará el 30 de agosto. Puede revisarlo con calma antes.</p>
+
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Salario del mes</th><td>$850.000</td></tr>
+      <tr><th>Seguridad social (a cargo del hogar)</th><td>$210.000</td></tr>
+      <tr><th>Horas registradas</th><td>168 horas · 22 horas pendientes de confirmar</td></tr>
+      <tr><th>Total a pagar</th><td><strong>$1.060.000</strong></td></tr>
+      <tr><th>Desde qué cuenta</th><td>Banco Seguro ····4821</td></tr>
+      <tr><th>Quién lo autoriza</th><td>María Rodríguez (usted)</td></tr>
+      <tr><th>Quién lo preparó</th><td>Sistema (pago recurrente configurado por usted en marzo de 2023)</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="caja caja-punteada">
+    <p><strong>Este pago está programado, pero todavía NO se ha realizado.</strong></p>
+    <div class="fila-botones">
+      <button class="btn btn-principal" onclick="ir('pagos-comprobante')">CONFIRMAR AHORA</button>
+      <button class="btn" onclick="ir('pagos')">DEJARLO PROGRAMADO</button>
+      <button class="btn">CAMBIAR MONTO O FECHA</button>
+      <button class="btn" onclick="ir('ayuda-persona')">PEDIR AYUDA</button>
+    </div>
+  </div>
+
+  <h2 class="seccion">Historial de pagos a Laura</h2>
+  <table>
+    <thead><tr><th>Mes</th><th>Salario</th><th>Seguridad social</th><th>Estado</th><th>Comprobante</th></tr></thead>
+    <tbody>
+      <tr><td>Julio</td><td class="num">$850.000</td><td class="num">$210.000</td><td><span class="estado">Pagado</span></td><td><button class="btn btn-peq" onclick="ir('pagos-comprobante')">VER</button></td></tr>
+      <tr><td>Junio</td><td class="num">$850.000</td><td class="num">$210.000</td><td><span class="estado">Pagado</span></td><td><button class="btn btn-peq" onclick="ir('pagos-comprobante')">VER</button></td></tr>
+    </tbody>
+  </table>
+  <div class="nota"><span class="etq">Protección de la persona cuidadora</span>La nómina y la seguridad social se calculan y se recuerdan automáticamente, para que el trabajo de Laura esté siempre formalizado y pagado a tiempo.</div>
+</section>
+
+<!-- ===== TARJETA ===== -->
+<section id="p-tarjeta" class="pantalla" data-nav="tarjeta">
+  <div class="ruta">Usted está en: Inicio › Tarjeta y billetera</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Mi tarjeta y mi dinero para gastar</h1>
+  <p class="sub">Dinero del día a día, separado del resto de sus cuentas.</p>
+
+  <div class="rejilla-3">
+    <div class="caja"><span class="etq">Dinero disponible para gastos</span><div class="cifra">$ 450.000</div></div>
+    <div class="caja"><span class="etq">Límite diario</span><div class="cifra-media" id="lim-diario">$ 100.000</div></div>
+    <div class="caja"><span class="etq">Límite por compra</span><div class="cifra-media" id="lim-compra">$ 80.000</div></div>
+  </div>
+
+  <div class="placeholder">[ Representación de la tarjeta — Banco Seguro ···· 4821 — sin diseño final ]</div>
+
+  <div class="rejilla-4">
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('tarjeta-recargar')">RECARGAR</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('tarjeta-limites')">CAMBIAR LÍMITES</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('tarjeta-bloqueo')">BLOQUEAR TARJETA</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('dinero')">VER MOVIMIENTOS</button>
+  </div>
+
+  <h2 class="seccion">Compartir tranquilidad con mi familia</h2>
+  <div class="caja">
+    <p>Usted elige qué se le avisa a su familia. Ellos reciben avisos; <strong>no reciben control</strong>.</p>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Avisar cuando el saldo sea bajo</strong><span class="desc">Se avisará a Ana si quedan menos de $50.000</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Avisar de compras inusuales</strong><span class="desc">Compras muy distintas a las habituales</span></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Avisar si la tarjeta se bloquea</strong><span class="desc">Por seguridad o por decisión suya</span></span></label>
+    <button class="btn btn-principal">GUARDAR ESTAS PREFERENCIAS</button>
+  </div>
+
+  <h2 class="seccion">Últimos gastos con la tarjeta</h2>
+  <table>
+    <thead><tr><th>Fecha</th><th>Comercio</th><th>Monto</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>12 ago</td><td>Farmacia del barrio</td><td class="num">-$90.000</td><td><span class="estado">Aprobado</span></td></tr>
+      <tr><td>11 ago</td><td>Supermercado</td><td class="num">-$65.000</td><td><span class="estado">Aprobado</span></td></tr>
+      <tr><td>10 ago</td><td>Tienda en internet (nueva)</td><td class="num">-$140.000</td><td><span class="estado estado-rayado">Rechazado por su límite</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== CAMBIAR LÍMITES ===== -->
+<section id="p-tarjeta-limites" class="pantalla" data-nav="tarjeta">
+  <div class="ruta">Usted está en: Inicio › Tarjeta › Cambiar límites</div>
+  <button class="btn btn-peq" onclick="ir('tarjeta')">← VOLVER A LA TARJETA</button>
+  <h1>Cambiar mis límites</h1>
+  <p class="sub">Usted decide cuánto puede gastar por día y por compra. Puede cambiarlo cuando quiera.</p>
+
+  <div class="caja">
+    <span class="etq">Límite diario · actualmente $100.000</span>
+    <label class="opcion"><input type="radio" name="ld" value="50.000"><span><strong>$50.000 al día</strong><span class="desc">Más protección, menos margen</span></span></label>
+    <label class="opcion"><input type="radio" name="ld" value="100.000" checked><span><strong>$100.000 al día</strong><span class="desc">Su límite actual</span></span></label>
+    <label class="opcion"><input type="radio" name="ld" value="200.000"><span><strong>$200.000 al día</strong><span class="desc">Más margen, menos protección</span></span></label>
+    <label class="opcion"><input type="radio" name="ld" value="otro"><span><strong>Otra cantidad</strong><span class="desc">Escríbala usted misma</span></span></label>
+    <label class="campo"><span class="etq">Otra cantidad (pesos)</span><input type="text" placeholder="Ejemplo: 150.000"></label>
+  </div>
+
+  <div class="nota">
+    <span class="etq">Qué va a pasar</span>
+    Un límite más alto le da más libertad y también más exposición si alguien intentara engañarla. Ninguna opción es «la correcta»: es su decisión.
+  </div>
+
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="guardarLimite()">GUARDAR NUEVO LÍMITE</button>
+    <button class="btn" onclick="ir('tarjeta')">DEJARLO COMO ESTÁ</button>
+    <button class="btn" onclick="ir('ayuda-persona')">PEDIR AYUDA ANTES DE DECIDIR</button>
+  </div>
+</section>
+
+<!-- ===== CONFIRMACIÓN DE LÍMITE ===== -->
+<section id="p-tarjeta-limites-ok" class="pantalla" data-nav="tarjeta">
+  <div class="ruta">Usted está en: Inicio › Tarjeta › Cambiar límites › Confirmación</div>
+  <h1>Límite actualizado</h1>
+  <p class="sub"><span class="estado estado-negro">Confirmado</span></p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasó</th><td>Cambió su límite diario a <strong id="ok-limite">$100.000</strong>.</td></tr>
+      <tr><th>Qué significa</th><td>A partir de ahora, la tarjeta rechazará gastos que superen esa cantidad en un mismo día.</td></tr>
+      <tr><th>Qué puede hacer</th><td>Volver a cambiarlo en cualquier momento, sin límite de veces.</td></tr>
+      <tr><th>Quién fue avisado</th><td>Nadie. Cambiar sus propios límites no genera avisos a su familia.</td></tr>
+    </tbody></table>
+  </div>
+  <button class="btn btn-principal" onclick="ir('tarjeta')">VOLVER A MI TARJETA</button>
+  <button class="btn" onclick="ir('inicio')">IR A INICIO</button>
+</section>
+
+<!-- ===== RECARGAR ===== -->
+<section id="p-tarjeta-recargar" class="pantalla" data-nav="tarjeta">
+  <div class="ruta">Usted está en: Inicio › Tarjeta › Recargar</div>
+  <button class="btn btn-peq" onclick="ir('tarjeta')">← VOLVER A LA TARJETA</button>
+  <h1>Pasar dinero a mi tarjeta</h1>
+  <p class="sub">Desde su cuenta principal hacia su dinero del día a día.</p>
+  <div class="caja">
+    <label class="campo"><span class="etq">¿Cuánto quiere pasar?</span><input type="text" value="200.000"></label>
+    <p>Desde: <strong>Banco Seguro ····4821</strong> — disponible $4.250.000<br>Hacia: <strong>Mi tarjeta</strong> — saldo actual $450.000</p>
+    <p>Después de esta recarga tendría <strong>$650.000</strong> para gastos.</p>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('tarjeta')">CONFIRMAR RECARGA</button>
+    <button class="btn" onclick="ir('pagos-despues')">GUARDAR PARA DESPUÉS</button>
+    <button class="btn" onclick="ir('tarjeta')">CANCELAR</button>
+  </div>
+</section>
+
+<!-- ===== BLOQUEAR TARJETA ===== -->
+<section id="p-tarjeta-bloqueo" class="pantalla" data-nav="tarjeta">
+  <div class="ruta">Usted está en: Inicio › Tarjeta › Bloquear tarjeta</div>
+  <button class="btn btn-peq" onclick="ir('tarjeta')">← VOLVER A LA TARJETA</button>
+  <h1>Bloquear mi tarjeta</h1>
+  <p class="sub">Bloquear no es perder el dinero. Es dejarla en pausa.</p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasa si bloquea</th><td>La tarjeta deja de funcionar para compras nuevas.</td></tr>
+      <tr><th>Qué NO pasa</th><td>Su dinero sigue siendo suyo. Sus pagos del hogar no se ven afectados.</td></tr>
+      <tr><th>Cómo se desbloquea</th><td>Usted misma, desde esta pantalla, o con ayuda de un asesor.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('tarjeta')">BLOQUEAR AHORA</button>
+    <button class="btn" onclick="ir('tarjeta')">NO BLOQUEAR</button>
+    <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA</button>
+  </div>
+</section>
+
+<!-- ===== CENTRO DE SEGURIDAD ===== -->
+<section id="p-seguridad" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Centro de seguridad</h1>
+  <p class="sub"><span class="estado estado-negro">Protección activa</span> Estamos revisando señales de posibles estafas.</p>
+
+  <h2 class="seccion">Necesita su atención</h2>
+  <div class="caja">
+    <span class="estado estado-rayado">Requiere su decisión</span>
+    <h3>Un mensaje que podría ser una estafa</h3>
+    <p>Recibido hoy a las 08:41 desde un número desconocido.</p>
+    <button class="btn btn-principal" onclick="ir('seguridad-mensaje')">REVISAR ESTE MENSAJE</button>
+  </div>
+  <div class="caja">
+    <span class="estado estado-rayado">En revisión</span>
+    <h3>Una transferencia detenida en la Zona segura</h3>
+    <p>Juan Pérez — $2.500.000 — destinatario nuevo. <strong>El dinero no ha sido enviado.</strong></p>
+    <button class="btn btn-principal" onclick="ir('seguridad-zona')">VER LA OPERACIÓN</button>
+  </div>
+
+  <div class="fila-botones">
+    <button class="btn" onclick="ir('seguridad-reglas')">MIS REGLAS DE PROTECCIÓN</button>
+    <button class="btn" onclick="ir('ayuda-persona')">NECESITO AYUDA</button>
+  </div>
+</section>
+
+<!-- ===== MENSAJE SOSPECHOSO ===== -->
+<section id="p-seguridad-mensaje" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Mensaje sospechoso</div>
+  <button class="btn btn-peq" onclick="ir('seguridad')">← VOLVER A SEGURIDAD</button>
+  <h1>Queremos ayudarle a comprobar que esto sea seguro</h1>
+  <p class="sub">Detectamos un mensaje que podría ser una estafa. Todavía no hay que hacer nada con prisa.</p>
+
+  <div class="caja caja-gris">
+    <span class="etq">Mensaje recibido — número desconocido — hoy 08:41</span>
+    <p style="font-size:20px;border-left:8px solid #000;padding-left:16px;">«Hola mamá, soy yo. Cambié de teléfono. Necesito que me transfieras $800.000 urgentemente.»</p>
+  </div>
+
+  <div class="caja">
+    <span class="estado estado-negro">Alto: señales de posible suplantación</span>
+    <h3 style="margin-top:14px;">Qué nos llamó la atención</h3>
+    <ul class="limpia">
+      <li><span class="marca-si">✓</span> Solicitud inesperada de dinero</li>
+      <li><span class="marca-si">✓</span> Dice que cambió de número de teléfono</li>
+      <li><span class="marca-si">✓</span> Usa lenguaje de urgencia</li>
+      <li><span class="marca-si">✓</span> El destinatario no es habitual en su historial</li>
+    </ul>
+    <p><strong>Esto no significa que usted haya hecho algo mal.</strong> Es un mensaje muy común y está diseñado para confundir a cualquiera.</p>
+  </div>
+
+  <h2 class="seccion">¿Qué quiere hacer?</h2>
+  <div class="rejilla-2">
+    <button class="btn btn-principal btn-ancho" style="min-height:80px;" onclick="ir('seguridad-bloqueado')">BLOQUEAR</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('seguridad')">MARCAR COMO SEGURO</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('familia')">PREGUNTAR A MI FAMILIA</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('ayuda-persona')">HABLAR CON UN ASESOR</button>
+  </div>
+  <div class="nota"><span class="etq">Sugerencia</span>Si le preocupa, llame usted misma al número de siempre de su hija Ana. Nunca al número que aparece en el mensaje.</div>
+</section>
+
+<!-- ===== MENSAJE BLOQUEADO ===== -->
+<section id="p-seguridad-bloqueado" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Mensaje sospechoso › Bloqueado</div>
+  <h1>El mensaje fue bloqueado</h1>
+  <p class="sub"><span class="estado estado-negro">Bloqueado</span> Usted tomó la decisión.</p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasó</th><td>Bloqueamos el mensaje y el número que lo envió.</td></tr>
+      <tr><th>Por qué</th><td>Tenía cuatro señales de posible suplantación y usted decidió bloquearlo.</td></tr>
+      <tr><th>Qué significa</th><td>Ese número no podrá volver a escribirle dentro de la aplicación.</td></tr>
+      <tr><th>Qué puede hacer</th><td>Puede deshacer este bloqueo cuando quiera desde el historial de seguridad.</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="caja caja-punteada">
+    <h3>¿Quiere avisar a su familia?</h3>
+    <p>Su regla actual dice: «Avisar a Ana si detectamos una posible estafa». Puede cumplirla, saltarla esta vez o cambiarla.</p>
+    <div class="fila-botones">
+      <button class="btn btn-principal" onclick="ir('actividad')">AVISAR A ANA AHORA</button>
+      <button class="btn" onclick="ir('seguridad')">NO AVISAR ESTA VEZ</button>
+      <button class="btn" onclick="ir('seguridad-reglas')">CAMBIAR ESTA REGLA</button>
+    </div>
+  </div>
+  <button class="btn" onclick="ir('seguridad')">VOLVER A SEGURIDAD</button>
+  <button class="btn" onclick="ir('inicio')">IR A INICIO</button>
+</section>
+
+<!-- ===== ZONA SEGURA ===== -->
+<section id="p-seguridad-zona" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Zona segura</div>
+  <button class="btn btn-peq" onclick="ir('seguridad')">← VOLVER A SEGURIDAD</button>
+  <h1>Zona segura — operación en revisión</h1>
+  <p class="sub"><span class="estado estado-rayado">En revisión</span> <strong>El dinero no ha sido enviado.</strong></p>
+
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Destinatario</th><td>Juan Pérez</td></tr>
+      <tr><th>Monto</th><td><strong>$2.500.000</strong></td></tr>
+      <tr><th>Motivo de la revisión</th><td>Transferencia nueva a una persona que nunca había recibido dinero suyo</td></tr>
+      <tr><th>Solicitada desde</th><td>Un dispositivo no reconocido, hoy a las 08:47</td></tr>
+      <tr><th>Estado</th><td><span class="estado estado-rayado">En revisión</span></td></tr>
+      <tr><th>Regla aplicada</th><td>«Bloquear automáticamente transferencias a nuevos destinatarios durante 24 horas»</td></tr>
+      <tr><th>Tiempo para decidir</th><td>El que usted necesite. No hay cuenta atrás.</td></tr>
+    </tbody></table>
+  </div>
+
+  <div class="nota"><span class="etq">Qué es la Zona segura</span>Cuando algo no encaja con su forma habitual de usar el dinero, la operación se aparta aquí en lugar de ejecutarse. Es una sala de espera: nada sale de su cuenta hasta que usted lo diga.</div>
+
+  <div class="rejilla-3">
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('seguridad-zona-cancelado')">CANCELAR LA OPERACIÓN</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('seguridad-zona-confirmado')">CONFIRMAR, LA RECONOZCO</button>
+    <button class="btn btn-ancho" style="min-height:80px;" onclick="ir('ayuda-persona')">PEDIR AYUDA</button>
+  </div>
+</section>
+
+<section id="p-seguridad-zona-cancelado" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Zona segura › Resultado</div>
+  <h1>El movimiento fue detenido para protegerle</h1>
+  <p class="sub"><span class="estado estado-negro">Cancelado</span></p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasó</th><td>Usted canceló una transferencia de $2.500.000 a Juan Pérez.</td></tr>
+      <tr><th>Por qué</th><td>Era un destinatario nuevo y la solicitud venía de un dispositivo no reconocido.</td></tr>
+      <tr><th>Dónde está su dinero</th><td>Completo, en su cuenta Banco Seguro ····4821.</td></tr>
+      <tr><th>Qué puede hacer</th><td>Nada más, si no quiere. También puede revisar sus dispositivos autorizados o hablar con un asesor.</td></tr>
+      <tr><th>Quién fue avisado</th><td>Ana recibió un aviso, según su regla de protección.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('seguridad')">VOLVER A SEGURIDAD</button>
+    <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA</button>
+    <button class="btn" onclick="ir('actividad')">VER LA ACTIVIDAD COMPARTIDA</button>
+  </div>
+</section>
+
+<section id="p-seguridad-zona-confirmado" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Zona segura › Confirmación en dos pasos</div>
+  <h1>Antes de enviar, una comprobación más</h1>
+  <p class="sub">Usted dijo que reconoce esta operación. Vamos a comprobarlo con calma.</p>
+  <div class="caja">
+    <p><strong>Va a enviar $2.500.000 a Juan Pérez.</strong> Es la primera vez que envía dinero a esta persona.</p>
+    <label class="opcion"><input type="checkbox"><span><strong>Conozco a Juan Pérez y hablé con él por un medio de siempre</strong><span class="desc">No por el mensaje o el enlace que recibió hoy</span></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Nadie me está pidiendo hacer esto con urgencia</strong></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Entiendo que este dinero no se puede recuperar fácilmente</strong></span></label>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('pagos-comprobante')">SÍ, ENVIAR EL DINERO</button>
+    <button class="btn" onclick="ir('seguridad-zona')">VOLVER A PENSARLO</button>
+    <button class="btn" onclick="ir('familia')">PREGUNTAR A MI FAMILIA</button>
+    <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UN ASESOR</button>
+  </div>
+</section>
+
+<!-- ===== REGLAS DE PROTECCIÓN ===== -->
+<section id="p-seguridad-reglas" class="pantalla" data-nav="seguridad">
+  <div class="ruta">Usted está en: Inicio › Seguridad › Mis reglas de protección</div>
+  <button class="btn btn-peq" onclick="ir('seguridad')">← VOLVER A SEGURIDAD</button>
+  <h1>Mis reglas de protección</h1>
+  <p class="sub">Usted decide qué hace el sistema cuando algo parece sospechoso.</p>
+
+  <div class="caja">
+    <label class="opcion"><input type="checkbox" checked><span><strong>Bloquear automáticamente transferencias a nuevos destinatarios durante 24 horas</strong><span class="desc">La operación se aparta en la Zona segura. Usted puede confirmarla antes si quiere.</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Pedirme una confirmación adicional para pagos inusuales</strong><span class="desc">Montos o destinatarios distintos a los de siempre</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Avisar a Ana si detectamos una posible estafa</strong><span class="desc">Ana recibe el aviso; no puede detener ni autorizar nada por su cuenta</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Bloquear enlaces sospechosos recibidos por SMS o mensajería</strong></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Avisar a Ana de cualquier pago superior a $1.000.000</strong><span class="desc">Ahora está desactivado</span></span></label>
+  </div>
+
+  <h2 class="seccion">Cuando detectemos algo, ¿qué prefiere que hagamos?</h2>
+  <div class="caja">
+    <label class="opcion"><input type="radio" name="reaccion" checked><span><strong>Bloquear automáticamente y avisarme después</strong><span class="desc">Máxima protección</span></span></label>
+    <label class="opcion"><input type="radio" name="reaccion"><span><strong>Preguntarme antes de hacer nada</strong><span class="desc">Usted decide caso por caso</span></span></label>
+    <label class="opcion"><input type="radio" name="reaccion"><span><strong>Avisar también a mi familia</strong><span class="desc">Ana recibe el mismo aviso que usted</span></span></label>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('seguridad')">GUARDAR MIS REGLAS</button>
+    <button class="btn" onclick="ir('seguridad')">CANCELAR</button>
+  </div>
+  <div class="nota"><span class="etq">Autonomía</span>Estas reglas son suyas. Su familia puede sugerir cambios, pero no puede modificarlas sin su autorización.</div>
+</section>
+
+<!-- ===== FAMILIA Y AYUDA ===== -->
+<section id="p-familia" class="pantalla" data-nav="familia">
+  <div class="ruta">Usted está en: Inicio › Familia y ayuda</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Personas que pueden ayudarme</h1>
+  <p class="sub">Dar acceso no significa entregar el control de su dinero.</p>
+
+  <div class="caja">
+    <span class="etq">Hija</span>
+    <h3>Ana Rodríguez</h3>
+    <p>Recibe alertas y puede preparar pagos. <strong>Usted siempre confirma.</strong></p>
+    <div class="fila-botones">
+      <button class="btn" onclick="ir('familia-conceder')">CAMBIAR PERMISOS</button>
+      <button class="btn" onclick="ir('familia-revocar')">QUITAR ACCESO</button>
+    </div>
+  </div>
+
+  <div class="caja">
+    <span class="etq">Cuidadora</span>
+    <h3>Laura Gómez</h3>
+    <p>Registra sus horas y consulta sus pagos. No ve su dinero.</p>
+    <div class="fila-botones">
+      <button class="btn" onclick="ir('familia-conceder')">CAMBIAR PERMISOS</button>
+      <button class="btn" onclick="ir('familia-revocar')">QUITAR ACCESO</button>
+    </div>
+  </div>
+
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('familia-conceder')">DAR ACCESO A OTRA PERSONA</button>
+    <button class="btn" onclick="ir('ayuda-persona')">NECESITO AYUDA</button>
+  </div>
+</section>
+
+<!-- ===== CONCEDER ACCESO ===== -->
+<section id="p-familia-conceder" class="pantalla" data-nav="familia">
+  <div class="ruta">Usted está en: Inicio › Familia y ayuda › Permisos</div>
+  <button class="btn btn-peq" onclick="ir('familia')">← VOLVER A FAMILIA Y AYUDA</button>
+  <h1>¿Qué puede hacer esta persona?</h1>
+  <p class="sub">Persona: <strong>Ana Rodríguez (hija)</strong>. Marque solo lo que usted quiera.</p>
+  <div class="pasos"><div>1. Persona</div><div class="activo">2. Permisos</div><div>3. Guardar</div></div>
+
+  <div class="caja">
+    <label class="opcion"><input type="checkbox" checked><span><strong>Ver movimientos</strong><span class="desc">Solo las categorías que usted elija. Puede excluir salud o gastos personales.</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Recibir alertas</strong><span class="desc">Avisos de posibles estafas y operaciones detenidas</span></span></label>
+    <label class="opcion"><input type="checkbox" checked><span><strong>Preparar pagos</strong><span class="desc">Deja el pago listo. Usted lo confirma. Sin su confirmación no se envía nada.</span></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Solicitar ayuda en mi nombre</strong><span class="desc">Puede llamar al asesor por un asunto suyo</span></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Aprobar pagos</strong><span class="desc">Permiso fuerte: podría confirmar pagos sin usted. Puede limitarlo por monto.</span></span></label>
+    <label class="opcion"><input type="checkbox"><span><strong>Administrar empleados</strong><span class="desc">Horas, documentos y nómina de Laura</span></span></label>
+  </div>
+
+  <div class="caja caja-gris">
+    <span class="etq">Límites de este permiso</span>
+    <label class="campo"><span class="etq">Monto máximo que puede preparar sin avisarme</span><input type="text" value="200.000"></label>
+    <label class="campo"><span class="etq">Hasta cuándo dura este acceso</span>
+      <select><option>Sin fecha de fin (puedo revocarlo cuando quiera)</option><option>3 meses</option><option>1 año</option><option>Solo mientras esté de viaje</option></select>
+    </label>
+  </div>
+
+  <div class="nota"><span class="etq">Importante</span>Dar acceso no significa entregar el control de su dinero. Todo lo que haga Ana quedará registrado en «Actividad compartida», y usted puede revocar este acceso en cualquier momento sin explicar por qué.</div>
+
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('familia-guardado')">GUARDAR PERMISOS</button>
+    <button class="btn" onclick="ir('familia')">CANCELAR</button>
+    <button class="btn" onclick="ir('ayuda-persona')">PEDIR AYUDA PARA DECIDIR</button>
+  </div>
+</section>
+
+<section id="p-familia-guardado" class="pantalla" data-nav="familia">
+  <div class="ruta">Usted está en: Inicio › Familia y ayuda › Permisos › Guardado</div>
+  <h1>Permisos guardados</h1>
+  <p class="sub"><span class="estado estado-negro">Confirmado</span></p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasó</th><td>Ana Rodríguez puede ver movimientos, recibir alertas y preparar pagos hasta $200.000.</td></tr>
+      <tr><th>Qué significa</th><td>Ana <strong>no</strong> puede enviar dinero. Los pagos que prepare esperarán su confirmación.</td></tr>
+      <tr><th>Qué puede hacer</th><td>Cambiar o revocar estos permisos cuando quiera, sin dar explicaciones.</td></tr>
+      <tr><th>Quién fue avisado</th><td>Ana recibió un aviso de que usted actualizó sus permisos.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('familia')">VOLVER A FAMILIA Y AYUDA</button>
+    <button class="btn" onclick="ir('actividad')">VER ACTIVIDAD COMPARTIDA</button>
+  </div>
+</section>
+
+<section id="p-familia-revocar" class="pantalla" data-nav="familia">
+  <div class="ruta">Usted está en: Inicio › Familia y ayuda › Revocar acceso</div>
+  <button class="btn btn-peq" onclick="ir('familia')">← VOLVER</button>
+  <h1>Quitar el acceso a una persona</h1>
+  <p class="sub">Puede hacerlo sola, ahora mismo, y sin dar explicaciones.</p>
+  <div class="caja">
+    <table><tbody>
+      <tr><th style="width:34%">Qué pasa al revocar</th><td>Esa persona deja de ver sus movimientos y de recibir alertas.</td></tr>
+      <tr><th>Qué NO pasa</th><td>No se borra el historial de lo que hizo. Usted puede seguir consultándolo.</td></tr>
+      <tr><th>¿Se le avisa a esa persona?</th><td>Sí, recibirá un aviso simple. No verá el motivo.</td></tr>
+      <tr><th>¿Puede volver a darle acceso?</th><td>Sí, cuando quiera.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal" onclick="ir('familia')">QUITAR EL ACCESO</button>
+    <button class="btn" onclick="ir('familia')">DEJARLO COMO ESTÁ</button>
+    <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA ANTES</button>
+  </div>
+</section>
+
+<!-- ===== ACTIVIDAD COMPARTIDA ===== -->
+<section id="p-actividad" class="pantalla" data-nav="actividad">
+  <div class="ruta">Usted está en: Inicio › Actividad</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Actividad compartida</h1>
+  <p class="sub">Todo lo que hicieron las personas autorizadas y el sistema, con nombre y apellido.</p>
+
+  <table>
+    <thead><tr><th>Fecha</th><th>Acción</th><th>Persona / sistema</th><th>Permiso utilizado</th><th>Resultado</th><th>Detalle</th></tr></thead>
+    <tbody>
+      <tr><td>12 ago 08:50</td><td>Se detuvo una transferencia a un destinatario nuevo</td><td>Sistema</td><td>Regla: nuevos destinatarios</td><td><span class="estado estado-rayado">En revisión</span></td><td><button class="btn btn-peq" onclick="ir('seguridad-zona')">VER</button></td></tr>
+      <tr><td>12 ago 08:42</td><td>Su hija Ana recibió una alerta de posible estafa</td><td>Ana Rodríguez</td><td>Recibir alertas</td><td><span class="estado">Aviso enviado</span></td><td><button class="btn btn-peq" onclick="ir('seguridad-mensaje')">VER</button></td></tr>
+      <tr><td>11 ago 18:10</td><td>Laura registró 8 horas de trabajo</td><td>Laura Gómez</td><td>Registrar horas</td><td><span class="estado">Registrado</span></td><td><button class="btn btn-peq" onclick="ir('empleado-perfil')">VER</button></td></tr>
+      <tr><td>11 ago 10:32</td><td>Se realizó el pago de electricidad</td><td>María Rodríguez (usted)</td><td>Titular de la cuenta</td><td><span class="estado">Pagado</span></td><td><button class="btn btn-peq" onclick="ir('dinero-detalle')">VER</button></td></tr>
+      <tr><td>10 ago 09:05</td><td>El sistema bloqueó un mensaje sospechoso</td><td>Sistema</td><td>Escudo de mensajes</td><td><span class="estado">Bloqueado</span></td><td><button class="btn btn-peq" onclick="ir('seguridad-bloqueado')">VER</button></td></tr>
+      <tr><td>09 ago 16:20</td><td>Ana preparó el pago del seguro de salud</td><td>Ana Rodríguez</td><td>Preparar pagos</td><td><span class="estado estado-gris">Esperando su confirmación</span></td><td><button class="btn btn-peq" onclick="prepararPago('seguro')">VER</button></td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota"><span class="etq">Transparencia</span>Nadie puede borrar ni ocultar filas de esta tabla, tampoco su familia. Si alguien mira sus movimientos, aquí queda registrado.</div>
+  <div class="fila-botones">
+    <button class="btn">IMPRIMIR ESTA ACTIVIDAD</button>
+    <button class="btn" onclick="ir('familia')">VER QUIÉN TIENE PERMISOS</button>
+  </div>
+</section>
+
+<!-- ===== AYUDA ===== -->
+<section id="p-ayuda" class="pantalla" data-nav="ayuda">
+  <div class="ruta">Usted está en: Inicio › Ayuda</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>¿Necesita ayuda?</h1>
+  <p class="sub">Elija con qué necesita ayuda. Nadie va a tocar su dinero por usted.</p>
+
+  <div class="rejilla-2">
+    <div class="caja"><h3>Preguntar al asistente</h3><p>Escriba o hable. Él le explica; usted decide.</p><button class="btn btn-principal btn-ancho" style="min-height:96px;" onclick="ir('ayuda-asistente')">PREGUNTAR</button></div>
+    <div class="caja"><h3>Hablar con una persona</h3><p>Un asesor le acompaña.</p><button class="btn btn-ancho" style="min-height:96px;" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA</button></div>
+  </div>
+</section>
+
+<!-- ===== ASISTENTE ===== -->
+<section id="p-ayuda-asistente" class="pantalla" data-nav="ayuda">
+  <div class="ruta">Usted está en: Inicio › Ayuda › Asistente</div>
+  <button class="btn btn-peq" onclick="ir('ayuda')">← VOLVER A AYUDA</button>
+  <h1>Pregúntele a Mi Hogar Seguro</h1>
+  <p class="sub">Escriba su pregunta o pulse el micrófono. Sin prisa.</p>
+
+  <div class="caja">
+    <label class="campo"><span class="etq">Su pregunta</span><input type="text" id="pregunta" placeholder="Ejemplo: ¿cuánto tengo que pagar este mes?"></label>
+    <div class="fila-botones">
+      <button class="btn btn-principal" onclick="responder()">PREGUNTAR</button>
+      <button class="btn">🎤 HABLAR EN VOZ ALTA</button>
+      <button class="btn" onclick="ir('ayuda-persona')">HABLAR CON UNA PERSONA</button>
+    </div>
+    <span class="etq" style="margin-top:16px;">Preguntas frecuentes</span>
+    <div class="fila-botones">
+      <button class="btn btn-peq" onclick="responder('¿Cuánto tengo que pagar este mes?')">¿Cuánto tengo que pagar este mes?</button>
+      <button class="btn btn-peq" onclick="responder('¿Puedo pagar la luz?')">¿Puedo pagar la luz?</button>
+      <button class="btn btn-peq" onclick="responder('¿Qué pasó con la transferencia de $2.500.000?')">¿Qué pasó con esa transferencia?</button>
+      <button class="btn btn-peq" onclick="responder('¿Qué puede ver mi hija Ana?')">¿Qué puede ver mi hija Ana?</button>
+    </div>
+  </div>
+
+  <div class="caja caja-gris" id="respuesta-caja">
+    <span class="etq">Respuesta del asistente</span>
+    <p id="respuesta-texto" style="font-size:20px;">Este mes tienes 5 pagos pendientes por un total de $1.850.000.</p>
+    <div class="fila-botones" id="respuesta-botones">
+      <button class="btn btn-principal" onclick="prepararPago('luz')">PAGAR</button>
+      <button class="btn" onclick="ir('pagos')">REVISAR</button>
+      <button class="btn" onclick="ir('inicio')">NO HACER NADA</button>
+    </div>
+  </div>
+
+  <div class="nota">
+    <span class="etq">Regla del asistente</span>
+    El asistente nunca envía dinero por su cuenta. Si usted dice «paga la luz», el asistente prepara el pago y le muestra la pantalla «Revise antes de pagar» para que usted confirme.
+  </div>
+</section>
+
+<!-- ===== CONSERJERÍA HUMANA ===== -->
+<section id="p-ayuda-persona" class="pantalla" data-nav="ayuda">
+  <div class="ruta">Usted está en: Inicio › Ayuda › Hablar con una persona</div>
+  <button class="btn btn-peq" onclick="ir('ayuda')">← VOLVER A AYUDA</button>
+  <h1>Hablar con una persona</h1>
+  <p class="sub">Un asesor puede ayudarle a entender una operación antes de que usted decida.</p>
+
+  <div class="rejilla-2">
+    <div class="caja">
+      <span class="etq">Cómo prefiere hablar</span>
+      <button class="btn btn-ancho">QUE ME LLAMEN AHORA</button>
+      <button class="btn btn-ancho">QUE ME LLAMEN MÁS TARDE</button>
+      <button class="btn btn-ancho">ESCRIBIR UN MENSAJE</button>
+      <button class="btn btn-ancho">VIDEOLLAMADA</button>
+      <p class="mono" style="font-size:14px;">Asesores disponibles de lunes a sábado. Si no hay nadie, quedará una cita agendada.</p>
+    </div>
+    <div class="caja caja-gris">
+      <span class="etq">Qué puede y qué no puede hacer un asesor</span>
+      <ul class="limpia">
+        <li><span class="marca-si">✓</span> Explicarle una operación o una pantalla</li>
+        <li><span class="marca-si">✓</span> Acompañarle mientras usted decide</li>
+        <li><span class="marca-si">✓</span> Ayudarle a entrar si perdió el acceso</li>
+      </ul>
+      <ul class="limpia">
+        <li><span class="marca-si">✗</span> Mover su dinero</li>
+        <li><span class="marca-si">✗</span> Confirmar pagos por usted</li>
+        <li><span class="marca-si">✗</span> Pedirle contraseñas o códigos</li>
+        <li><span class="marca-si">✗</span> Cambiar sus permisos o sus reglas</li>
+      </ul>
+      <p><strong>Si alguien le pide un código por teléfono, no es de Mi Hogar Seguro.</strong></p>
+    </div>
+  </div>
+  <div class="fila-botones">
+    <button class="btn btn-principal">SOLICITAR AYUDA AHORA</button>
+    <button class="btn" onclick="ir('familia')">AVISAR TAMBIÉN A MI FAMILIA</button>
+    <button class="btn" onclick="ir('inicio')">VOLVER A INICIO</button>
+  </div>
+</section>
+
+<!-- ===== ENTRAR DE FORMA SEGURA ===== -->
+<section id="p-acceso" class="pantalla" data-nav="config">
+  <div class="ruta">Usted está en: Entrar de forma segura</div>
+  <h1>Entrar de forma segura</h1>
+  <p class="sub">Elija la forma que le resulte más cómoda. No necesita recordar contraseñas complicadas.</p>
+
+  <div class="caja">
+    <span class="etq">Formas de entrar</span>
+    <button class="btn btn-ancho" style="min-height:76px;" onclick="ir('inicio')">CÓDIGO ENVIADO A MI TELÉFONO</button>
+    <button class="btn btn-ancho" style="min-height:76px;" onclick="ir('inicio')">CONFIRMAR DESDE MI DISPOSITIVO DE SIEMPRE</button>
+    <button class="btn btn-ancho" style="min-height:76px;" onclick="ir('inicio')">LLAMADA DE VOZ QUE ME RECONOCE</button>
+    <button class="btn btn-ancho" style="min-height:76px;" onclick="ir('familia')">AYUDA DE UNA PERSONA AUTORIZADA</button>
+    <button class="btn btn-ancho" style="min-height:76px;" onclick="ir('ayuda-persona')">OTRO MÉTODO / HABLAR CON UN ASESOR</button>
+  </div>
+
+  <div class="rejilla-2">
+    <div class="caja caja-gris">
+      <span class="etq">Sin prisa</span>
+      <p>Los códigos no caducan en 30 segundos. Si tarda, no pasa nada: puede pedir otro las veces que necesite y nadie bloqueará su cuenta por intentarlo.</p>
+    </div>
+    <div class="caja caja-gris">
+      <span class="etq">Ayuda para entrar</span>
+      <p>Ana puede ayudarle a recuperar el acceso. En ese caso, Ana <strong>no</strong> ve su contraseña ni su código: solo confirma que es usted, y queda registrado en «Actividad compartida».</p>
+    </div>
+  </div>
+  <button class="btn" onclick="ir('inicio')">← VOLVER AL PROTOTIPO (INICIO)</button>
+</section>
+
+<!-- ===== CONFIGURACIÓN ===== -->
+<section id="p-config" class="pantalla" data-nav="config">
+  <div class="ruta">Usted está en: Inicio › Configuración</div>
+  <button class="btn btn-peq" onclick="ir('inicio')">← VOLVER A INICIO</button>
+  <h1>Configuración</h1>
+  <p class="sub">Cómo quiere ver y usar la aplicación.</p>
+
+  <div class="rejilla-2">
+    <div class="caja">
+      <h3>Tamaño de la letra</h3>
+      <label class="opcion"><input type="radio" name="letra" checked><span><strong>Letra grande</strong> (actual)</span></label>
+      <label class="opcion"><input type="radio" name="letra"><span><strong>Letra muy grande</strong></span></label>
+    </div>
+    <div class="caja">
+      <h3>Cómo entro a mi cuenta</h3>
+      <p>Ahora: código al teléfono.</p>
+      <button class="btn" onclick="ir('acceso')">CAMBIAR FORMA DE ENTRAR</button>
+    </div>
+  </div>
+  <button class="btn btn-peq" onclick="ir('estados')">¿QUÉ SIGNIFICA CADA ESTADO?</button>
+</section>
+
+<!-- ===== ESTADOS ===== -->
+<section id="p-estados" class="pantalla" data-nav="config">
+  <div class="ruta">Usted está en: Inicio › Configuración › Glosario de estados</div>
+  <button class="btn btn-peq" onclick="ir('config')">← VOLVER A CONFIGURACIÓN</button>
+  <h1>Qué significa cada estado</h1>
+  <p class="sub">Siempre le decimos qué pasó, qué significa y qué puede hacer.</p>
+  <table>
+    <thead><tr><th>Estado</th><th>Qué pasó</th><th>Qué significa</th><th>Qué puede hacer usted</th></tr></thead>
+    <tbody>
+      <tr><td><span class="estado">Normal</span></td><td>Nada fuera de lo habitual</td><td>Todo está tranquilo</td><td>Seguir usando la aplicación con normalidad</td></tr>
+      <tr><td><span class="estado">Pendiente</span></td><td>Hay algo por pagar o por decidir</td><td>Todavía no se ha movido dinero</td><td>Hacerlo ahora o dejarlo para después</td></tr>
+      <tr><td><span class="estado estado-rayado">En revisión</span></td><td>Algo no encaja con su forma habitual de usar el dinero</td><td>La operación está apartada en la Zona segura. El dinero no salió</td><td>Confirmar, cancelar o pedir ayuda</td></tr>
+      <tr><td><span class="estado estado-rayado">Sospechoso</span></td><td>Detectamos señales de posible estafa</td><td>Le pedimos comprobarlo con calma</td><td>Bloquear, marcar como seguro, preguntar a su familia o a un asesor</td></tr>
+      <tr><td><span class="estado estado-negro">Bloqueado</span></td><td>El movimiento fue detenido para protegerle</td><td>No se envió dinero</td><td>Revisar el motivo, deshacer el bloqueo o hablar con un asesor</td></tr>
+      <tr><td><span class="estado estado-negro">Confirmado</span></td><td>Usted autorizó la operación</td><td>El dinero se movió</td><td>Ver o imprimir el comprobante</td></tr>
+      <tr><td><span class="estado">Cancelado</span></td><td>La operación no se llevó a cabo</td><td>Su dinero sigue completo</td><td>Volver a intentarlo cuando quiera</td></tr>
+      <tr><td><span class="estado estado-gris">Requiere ayuda</span></td><td>Hace falta otra persona para continuar</td><td>Una persona autorizada o un asesor puede acompañarle</td><td>Elegir a quién pedir ayuda, o resolverlo usted sola</td></tr>
+    </tbody>
+  </table>
+</section>
+
+    </main>
+  </div><!-- /cuerpo -->
+</div><!-- /marco -->
+<div class="pie">Mi Hogar Seguro · wireframe v0.1 · escala de grises · sin conexión a servicios financieros reales</div>
+</div><!-- /vista proto -->
+
+<!-- ================= VISTA DOCUMENTO ================= -->
+<div id="vista-doc" class="vista">
+<div class="marco">
+<div class="doc">
+
+<h1>Mapa de necesidades y decisiones de diseño</h1>
+<p class="sub">Mi Hogar Seguro — prototipo de baja fidelidad, desktop-first, español. Versión 0.1.</p>
+
+<h2>1. Objetivo del producto</h2>
+<p>Permitir que una persona mayor administre de forma independiente su hogar, sus pagos y su dinero, con una capa de protección contra estafas y fraude y, cuando ella lo desee, una red familiar de apoyo que pueda supervisar sin quitarle autonomía.</p>
+<p><strong>Lo que este producto no es:</strong> no es un banco, no ejecuta pagos reales, no se conecta a cuentas ni a APIs bancarias y no almacena credenciales. Toda la información del prototipo es ficticia.</p>
+<h4>Frase que ordena todas las decisiones</h4>
+<p style="font-size:22px;">La persona mayor es la dueña de sus decisiones. La familia ayuda. La tecnología protege. La persona mayor decide.</p>
+
+<h2>2. Personas y roles</h2>
+<table>
+  <thead><tr><th>Rol</th><th>Quién es</th><th>Puede</th><th>No puede</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Persona mayor</strong><br>María Rodríguez</td>
+      <td>Titular. Usuaria principal del prototipo.</td>
+      <td>Consultar su dinero, pagar, aprobar, bloquear, gestionar empleados y proveedores, usar tarjeta, delegar, pedir ayuda, revisar lo que hacen los demás.</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><strong>Familiar</strong><br>Ana Rodríguez (hija)</td>
+      <td>Red de apoyo opcional.</td>
+      <td>Recibir alertas, ver movimientos autorizados, preparar pagos, ayudar a recuperar el acceso.</td>
+      <td>Mover dinero libremente, cambiar permisos o reglas, ocultar movimientos, ver credenciales.</td>
+    </tr>
+    <tr>
+      <td><strong>Cuidadora / empleada</strong><br>Laura Gómez</td>
+      <td>Trabaja en el hogar.</td>
+      <td>Registrar horas, consultar sus propios pagos, subir documentos, confirmar trabajo realizado.</td>
+      <td>Ver el saldo total, ver otras cuentas, preparar o aprobar pagos.</td>
+    </tr>
+    <tr>
+      <td><strong>Administrador del hogar</strong></td>
+      <td>Familiar o tercero de confianza que lleva la operación del hogar.</td>
+      <td>Organizar servicios, proveedores, recurrentes, nómina, seguros, alquiler.</td>
+      <td>Actuar sin permiso explícito. Toda acción queda trazada.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. Principios UX</h2>
+<ol>
+  <li><strong>Una acción principal por pantalla.</strong> El resto son alternativas visibles, no ocultas.</li>
+  <li><strong>Sin presión de tiempo.</strong> Cero contadores, cero «última oportunidad», cero mensajes que desaparecen solos.</li>
+  <li><strong>Todo estado se escribe con palabras</strong>, no solo con color: «Pendiente», «En revisión», «Bloqueado».</li>
+  <li><strong>Tres preguntas siempre respondidas:</strong> qué pasó, qué significa, qué puede hacer usted.</li>
+  <li><strong>Reversibilidad.</strong> Cancelar, volver atrás y guardar para después están disponibles en cada paso.</li>
+  <li><strong>Sin vergüenza.</strong> El lenguaje nunca culpa a la persona: «Queremos ayudarle a comprobar que esto sea seguro».</li>
+  <li><strong>Delegar no es ceder.</strong> Cada permiso es individual, limitado, trazable y revocable.</li>
+  <li><strong>Honestidad sobre el riesgo.</strong> Nunca se promete protección total; se habla de protección en capas.</li>
+  <li><strong>Accesibilidad Silver:</strong> tipografía grande, alto contraste, botones de al menos 60 px de alto, mucho espacio, iconos siempre acompañados de texto, navegación idéntica en todas las pantallas.</li>
+</ol>
+
+<h2>4. Mapa de navegación</h2>
+<pre class="mono" style="font-size:14px;line-height:1.6;overflow:auto;border:2px solid #000;padding:16px;">
+BARRA SUPERIOR (fija): usuario · estado de seguridad · fecha y hora · conexión · [NECESITO AYUDA]
+
+INICIO ─────────── dashboard tranquilo, 4 botones grandes
+MI DINERO ──────── saldos → movimientos → detalle del movimiento
+PAGOS ──────────── pagar y organizar → revisar pago → confirmar / guardar → comprobante
+                              └─ pagar varias cosas
+MI HOGAR ───────── vencimientos, áreas, documentos
+EMPLEADOS ──────── Laura Gómez → perfil → horas → nómina
+                   proveedores
+TARJETA ────────── saldo, límites → cambiar límites → confirmación
+                   recargar · bloquear · avisos a la familia
+SEGURIDAD ──────── centro → mensaje sospechoso → bloqueado
+                          → zona segura → confirmar / cancelar
+                          → mis reglas de protección
+FAMILIA Y AYUDA ── personas autorizadas → permisos → guardado / revocar
+ACTIVIDAD ──────── actividad compartida (registro no borrable)
+AYUDA ──────────── 3 puertas → asistente IA → hablar con una persona
+CONFIGURACIÓN ─── forma de entrar (Entrar de forma segura) · accesibilidad · glosario de estados
+</pre>
+
+<h2>5. Flujos incluidos en el prototipo</h2>
+<table>
+  <thead><tr><th>#</th><th>Flujo</th><th>Dónde empieza</th><th>Qué demuestra</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Inicio → Pagos → Revisar pago → Confirmar → Comprobante</td><td>Botón PAGAR en Inicio o Pagos</td><td>Pago sin presión, revisión previa, comprobante imprimible</td></tr>
+    <tr><td>2</td><td>Inicio → Seguridad → Mensaje sospechoso → Bloquear → Avisar familia</td><td>Tarjeta «Necesita su atención»</td><td>Escudo antifraude y escalamiento familiar opcional</td></tr>
+    <tr><td>3</td><td>Inicio → Mi dinero → Movimiento → Detalle</td><td>VER DETALLE en la tabla</td><td>Trazabilidad completa de cada movimiento</td></tr>
+    <tr><td>4</td><td>Inicio → Familia y ayuda → Persona autorizada → Permisos → Guardar</td><td>CAMBIAR PERMISOS</td><td>Delegación granular, limitada y revocable</td></tr>
+    <tr><td>5</td><td>Inicio → Mi hogar → Empleados → Cuidadora → Nómina</td><td>Menú Mi hogar</td><td>Family office: nómina y seguridad social del hogar</td></tr>
+    <tr><td>6</td><td>Inicio → Tarjeta → Límite → Cambiar límite → Confirmación</td><td>CAMBIAR LÍMITES</td><td>Micro-soberanía sobre el gasto diario</td></tr>
+    <tr><td>7</td><td>Inicio → Ayuda → Asistente IA → Pregunta → Respuesta → Confirmar acción</td><td>ABRIR EL ASISTENTE</td><td>Asistente que explica pero nunca ejecuta solo</td></tr>
+    <tr><td>8</td><td>Inicio → Seguridad → Operación sospechosa → Zona segura → Confirmar/Cancelar</td><td>VER LA OPERACIÓN</td><td>Sandbox financiero con doble comprobación</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Necesidades [N1] – [N6]</h2>
+
+<h3>[N1] Pasarelas asincrónicas sin presión de tiempo</h3>
+<h4>Problema</h4>
+<p>Los flujos financieros están diseñados para usuarios rápidos: sesiones que caducan, códigos de 30 segundos, contadores. Una persona mayor que se detiene a pensar pierde el progreso, se frustra y —peor— aprende que decidir rápido es lo normal, que es exactamente la condición que explota una estafa.</p>
+<h4>Qué hace el producto</h4>
+<p>Ningún proceso financiero caduca por tiempo. Todo paso incompleto se guarda con su estado exacto. La pantalla de revisión previa es obligatoria, indica el paso actual (1-2-3) y ofrece siempre cuatro salidas: confirmar, guardar, cambiar, cancelar. Los comprobantes se pueden imprimir o guardar.</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Revisar antes de pagar · Lo puede revisar después · Guardado para después · Pagar varias cosas · Comprobante · Zona segura · Entrar de forma segura (códigos que no caducan) · Nómina programada.</p>
+<h4>Ejemplo de uso</h4>
+<p>María empieza a pagar la luz, duda porque el monto es más alto que otros meses, pulsa GUARDAR PARA DESPUÉS y llama a su hija por la tarde. Al volver, el pago está intacto y sigue diciendo «todavía NO se ha realizado».</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>Detenerse no tiene coste: ni penalización, ni aviso automático a la familia, ni pérdida del progreso. Dudar deja de ser un fracaso y se convierte en una opción del sistema.</p>
+<h4>Riesgos / limitaciones</h4>
+<p>Los vencimientos externos (arriendo, seguros) sí existen y no dependen del producto; hay que recordarlos sin generar ansiedad. Además, un pago guardado durante mucho tiempo puede quedar obsoleto y necesitar revalidación de monto.</p>
+
+<h3>[N2] Autenticación pasiva o alternativa + delegación segura</h3>
+<h4>Problema</h4>
+<p>La contraseña compleja es un requisito diseñado contra la biología: memoria, vista y precisión motora. Cuando falla, la salida real de muchas familias es peor que el problema: la persona mayor entrega su clave a un hijo o a un cuidador, y con ella entrega todo el control, sin registro ni límites.</p>
+<h4>Qué hace el producto</h4>
+<p>Cinco caminos de entrada equivalentes (código al teléfono, confirmación desde el dispositivo de siempre, llamada de voz, ayuda de una persona autorizada, asesor humano), sin códigos que caduquen en segundos y sin bloqueo por reintentos. La delegación sustituye a la clave compartida: permisos individuales, con monto máximo y fecha de caducidad, revocables sin dar explicaciones.</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Entrar de forma segura · Personas que pueden ayudarme · ¿Qué puede hacer esta persona? · Permisos guardados · Quitar el acceso · Actividad compartida.</p>
+<h4>Ejemplo de uso</h4>
+<p>María autoriza a Ana a preparar pagos de hasta $200.000 y a recibir alertas, pero no a aprobar pagos. Ana deja preparado el seguro de salud; el pago espera en estado «Esperando su confirmación» hasta que María entra y confirma.</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>Cada permiso se concede por separado y se explica en lenguaje de consecuencias («podría confirmar pagos sin usted»). La frase «Dar acceso no significa entregar el control de su dinero» aparece en la pantalla de concesión. Ayudar a entrar nunca revela la credencial.</p>
+<h4>Riesgos / limitaciones</h4>
+<p>La delegación bien diseñada no impide la coerción presencial de un familiar. Mitigaciones parciales: registro no borrable, avisos al titular cuando alguien usa un permiso, y un canal humano al que se puede acudir a solas.</p>
+
+<h3>[N3] Escudo de ciberseguridad pasiva, sandbox financiero y bloqueos algorítmicos</h3>
+<h4>Problema</h4>
+<p>El fraude actual llega por mensajería, imita a un familiar y trabaja con urgencia. Pedirle a la persona mayor que «reconozca» la estafa en tiempo real es trasladarle a ella el trabajo de seguridad.</p>
+<h4>Qué hace el producto</h4>
+<p>Una capa que revisa mensajes, enlaces, destinatarios nuevos, montos inusuales y peticiones urgentes; explica en palabras simples qué le llamó la atención; y, sobre todo, <strong>aparta la operación en lugar de ejecutarla</strong>. La Zona segura funciona como sala de espera: el dinero no sale. Para confirmar una operación apartada se pide una segunda comprobación con casillas de contexto («nadie me está pidiendo hacer esto con urgencia»).</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Centro de seguridad · Mensaje sospechoso · Mensaje bloqueado · Zona segura · Confirmación en dos pasos · Movimiento detenido · Mis reglas de protección · Glosario de estados.</p>
+<h4>Ejemplo de uso</h4>
+<p>Llega el clásico «Hola mamá, cambié de teléfono». El sistema lo marca con cuatro señales, María pulsa BLOQUEAR y decide si avisar a Ana. En paralelo, la transferencia de $2.500.000 a un destinatario nuevo queda en revisión sin haber salido de la cuenta.</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>Las reglas las escribe la persona mayor y puede desactivarlas. El sistema pausa, no decide. El lenguaje nunca dice «usted fue engañada»; dice «queremos ayudarle a comprobar que esto sea seguro».</p>
+<h4>Riesgos / limitaciones</h4>
+<p>Falsos positivos: bloquear un pago legítimo también daña la autonomía y la confianza. Ninguna capa garantiza protección total. Analizar mensajes implica tratamiento de datos personales sensibles y exige consentimiento explícito, minimización y una explicación honesta de qué se lee y qué no.</p>
+
+<h3>[N4] Family Office Silver B2C: nómina del hogar y protección del cuidador</h3>
+<h4>Problema</h4>
+<p>El hogar de una persona mayor es una pequeña empresa: servicios, seguros, arriendo, proveedores, una o varias personas empleadas con salario y seguridad social. Cuando esa administración se vuelve pesada, la familia la absorbe entera, y con ella absorbe el control del dinero. El cuidador, además, suele quedar en la informalidad.</p>
+<h4>Qué hace el producto</h4>
+<p>Centraliza vencimientos, nómina, seguridad social, contratos, horas y documentos, con cálculo y recordatorio automáticos. La persona empleada tiene acceso propio y acotado —registra horas, consulta sus pagos, sube documentos— sin ver el patrimonio del hogar.</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Administrar mi hogar · Empleados del hogar · Perfil de Laura Gómez · Nómina de agosto · Proveedores · Documentos.</p>
+<h4>Ejemplo de uso</h4>
+<p>Laura registra 8 horas; María las confirma. El 30 de agosto la nómina ($850.000) y la seguridad social ($210.000) están calculadas y programadas, y María solo decide si confirma ahora o las deja programadas.</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>Automatizar el cálculo no es automatizar la decisión: el pago se prepara solo, se confirma con una persona. El acceso del cuidador es visible, acotado y revocable desde la misma pantalla de permisos que el de la familia.</p>
+<h4>Riesgos / limitaciones</h4>
+<p>Las reglas de nómina y seguridad social son específicas de cada país y cambian; el prototipo las representa de forma genérica. Formalizar el empleo doméstico tiene consecuencias legales y fiscales reales que exigen asesoría, no un wireframe.</p>
+
+<h3>[N5] Billetera/tarjeta prepagada con micro-soberanía y telemetría pasiva</h3>
+<h4>Problema</h4>
+<p>Ante el miedo al fraude, la respuesta familiar habitual es todo o nada: o la persona mayor conserva acceso completo a su patrimonio, o se le retira la tarjeta. Ambas opciones son malas; la segunda es, además, una pérdida de dignidad cotidiana.</p>
+<h4>Qué hace el producto</h4>
+<p>Separa un bolsillo de gasto diario del resto del patrimonio, con límite diario y límite por compra que <strong>la propia persona mayor</strong> configura, y con avisos opcionales a la familia (saldo bajo, compra inusual, tarjeta bloqueada) que informan sin autorizar nada.</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Mi tarjeta y mi dinero para gastar · Cambiar mis límites · Límite actualizado · Recargar · Bloquear mi tarjeta · Compartir tranquilidad con mi familia.</p>
+<h4>Ejemplo de uso</h4>
+<p>Una compra de $140.000 en una tienda desconocida se rechaza por el límite por compra, sin drama y sin bloquear la tarjeta. María ve el intento en su lista de gastos y decide si sube el límite.</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>Los límites son de la titular, no de la familia: cambiarlos no genera avisos. La telemetría es de tranquilidad, no de vigilancia; la persona mayor ve exactamente qué se comparte y puede apagarlo.</p>
+<h4>Riesgos / limitaciones</h4>
+<p>La misma telemetría puede convertirse en control familiar si se amplía sin consentimiento. El diseño evita cualquier «panel de la familia» que muestre más de lo que la titular activó, y no ofrece a los familiares la posibilidad de bajar límites por su cuenta.</p>
+
+<h3>[N6] Wrappers visuales, asistente de voz con IA y conserjería Silver humana</h3>
+<h4>Problema</h4>
+<p>Las interfaces financieras son densas y su vocabulario es técnico. Y cuando algo se complica, no hay a quién preguntar: los canales de atención empujan a la autogestión.</p>
+<h4>Qué hace el producto</h4>
+<p>Una capa de lenguaje simple sobre cada dato, un asistente que responde por escrito o por voz a preguntas cotidianas y siempre termina en tres botones (Pagar / Revisar / No hacer nada), y una conserjería humana con alcance explícitamente limitado.</p>
+<h4>Pantallas que lo resuelven</h4>
+<p>Pregúntele a Mi Hogar Seguro · ¿Necesita ayuda? · Hablar con una persona · Glosario de estados · Botón «Necesito ayuda» siempre presente en la barra superior.</p>
+<h4>Ejemplo de uso</h4>
+<p>María pregunta «¿cuánto tengo que pagar este mes?» y recibe: «Este mes tienes 5 pagos pendientes por un total de $1.850.000», con la opción de pagar, revisar o no hacer nada.</p>
+<h4>Cómo se protege la autonomía</h4>
+<p>El asistente nunca ejecuta una operación sensible a partir de una instrucción ambigua: prepara y muestra la pantalla de revisión. El asesor humano no puede mover dinero, confirmar pagos, pedir códigos ni cambiar permisos, y esto se le dice a la usuaria en la misma pantalla.</p>
+<h4>Riesgos / limitaciones</h4>
+<p>Un asistente conversacional puede equivocarse o ser inducido a error, y una conserjería humana es un nuevo vector de suplantación («soy su asesor, deme el código»). Por eso el producto repite la regla inversa: nadie de Mi Hogar Seguro pedirá nunca un código.</p>
+
+<h2>7. Matriz de cobertura</h2>
+<table>
+  <thead><tr><th>Necesidad</th><th>Pantalla</th><th>Función</th><th>Evidencia en el prototipo</th></tr></thead>
+  <tbody>
+    <tr><td>[N1]</td><td>Revisar antes de pagar</td><td>Revisión previa sin caducidad</td><td>Bloque «Este pago está preparado, pero todavía NO se ha realizado» + 4 salidas</td></tr>
+    <tr><td>[N1]</td><td>Guardado para después</td><td>Persistencia del progreso</td><td>Tabla qué pasó / qué significa / qué puede hacer + botón CONTINUAR ESTE PAGO</td></tr>
+    <tr><td>[N1]</td><td>Pagar varias cosas</td><td>Proceso por pasos visibles</td><td>Indicador 1. Elegir / 2. Revisar / 3. Confirmar</td></tr>
+    <tr><td>[N1]</td><td>Comprobante</td><td>Cierre y prueba documental</td><td>IMPRIMIR COMPROBANTE · GUARDAR EN MIS DOCUMENTOS</td></tr>
+    <tr><td>[N1] [N2]</td><td>Entrar de forma segura</td><td>Acceso sin presión</td><td>«Los códigos no caducan en 30 segundos»</td></tr>
+    <tr><td>[N2]</td><td>Entrar de forma segura</td><td>Cinco métodos alternativos</td><td>Botones: código, dispositivo, voz, persona autorizada, asesor</td></tr>
+    <tr><td>[N2]</td><td>Personas que pueden ayudarme</td><td>Delegación granular</td><td>Listas «Puede / No puede» por persona + CAMBIAR, REVOCAR, VER ACTIVIDAD</td></tr>
+    <tr><td>[N2]</td><td>¿Qué puede hacer esta persona?</td><td>Permisos con límite y caducidad</td><td>Casillas grandes + monto máximo + duración del acceso</td></tr>
+    <tr><td>[N2] [N3]</td><td>Actividad compartida</td><td>Trazabilidad no borrable</td><td>Columnas Fecha / Acción / Persona / Permiso utilizado / Resultado</td></tr>
+    <tr><td>[N3]</td><td>Centro de seguridad</td><td>Estado y métricas comprensibles</td><td>Contadores + tabla de las 7 capas</td></tr>
+    <tr><td>[N3]</td><td>Mensaje sospechoso</td><td>Advertencia sin culpabilizar</td><td>Señales listadas + «Queremos ayudarle a comprobar que esto sea seguro»</td></tr>
+    <tr><td>[N3]</td><td>Zona segura</td><td>Sandbox financiero</td><td>Estado «En revisión» + «El dinero no ha sido enviado»</td></tr>
+    <tr><td>[N3]</td><td>Confirmación en dos pasos</td><td>Fricción deliberada en lo irreversible</td><td>Tres casillas de contexto antes de enviar</td></tr>
+    <tr><td>[N3]</td><td>Mis reglas de protección</td><td>Bloqueo algorítmico configurable</td><td>Regla de 24 h para destinatarios nuevos</td></tr>
+    <tr><td>[N4]</td><td>Administrar mi hogar</td><td>Dashboard de obligaciones</td><td>Total / pagados / pendientes + próximos vencimientos</td></tr>
+    <tr><td>[N4]</td><td>Empleados del hogar</td><td>Ficha laboral completa</td><td>Perfil, pagos, documentos, contrato</td></tr>
+    <tr><td>[N4]</td><td>Nómina de agosto</td><td>Nómina + seguridad social</td><td>Cálculo, horas registradas y estado «Programado»</td></tr>
+    <tr><td>[N4] [N2]</td><td>Perfil de Laura Gómez</td><td>Acceso acotado del cuidador</td><td>Listas «Puede / No puede» del rol cuidadora</td></tr>
+    <tr><td>[N5]</td><td>Mi tarjeta</td><td>Bolsillo separado</td><td>$450.000 para gastos, aparte del saldo total</td></tr>
+    <tr><td>[N5]</td><td>Cambiar mis límites</td><td>Micro-soberanía</td><td>Límite diario y límite por compra elegidos por la titular</td></tr>
+    <tr><td>[N5]</td><td>Compartir tranquilidad</td><td>Telemetría pasiva opcional</td><td>Tres casillas de aviso a la familia</td></tr>
+    <tr><td>[N6]</td><td>Pregúntele a Mi Hogar Seguro</td><td>Asistente IA / voz</td><td>Respuesta + PAGAR / REVISAR / NO HACER NADA</td></tr>
+    <tr><td>[N6]</td><td>Hablar con una persona</td><td>Conserjería Silver humana</td><td>Lista explícita de lo que el asesor no puede hacer</td></tr>
+    <tr><td>[N6]</td><td>Glosario de estados</td><td>Wrapper de lenguaje</td><td>Tabla estado / qué pasó / qué significa / qué puede hacer</td></tr>
+    <tr><td>Transversal</td><td>Inicio</td><td>Calma y orientación</td><td>«Todo está tranquilo» + 4 botones grandes</td></tr>
+    <tr><td>Transversal</td><td>Mi dinero · Detalle</td><td>Explicación completa del movimiento</td><td>Quién autorizó, si hubo seguridad, si se avisó a un familiar</td></tr>
+  </tbody>
+</table>
+
+<h2>8. Riesgos</h2>
+<ol>
+  <li><strong>Falsos positivos.</strong> Un escudo demasiado sensible bloquea pagos legítimos y termina siendo percibido como «la aplicación no me deja usar mi dinero». Necesita medición y un camino rápido de desbloqueo.</li>
+  <li><strong>Deriva hacia la vigilancia.</strong> Cada nueva señal compartida con la familia acerca el producto al control. La telemetría debe seguir siendo elegida por la titular, nunca activada por defecto por un familiar.</li>
+  <li><strong>Abuso financiero por personas cercanas.</strong> Es más frecuente que el fraude de desconocidos. El registro no borrable y el canal humano ayudan, pero no bastan: hace falta detección de patrones de coerción y una vía de salida discreta.</li>
+  <li><strong>Suplantación del propio producto.</strong> «Soy su asesor de Mi Hogar Seguro» es el siguiente guion de estafa. La regla «nunca le pediremos un código» debe repetirse en cada canal.</li>
+  <li><strong>Falsa sensación de seguridad.</strong> Prometer protección haría más daño que bien; el lenguaje debe seguir siendo «reducimos el riesgo».</li>
+  <li><strong>Privacidad del análisis de mensajes.</strong> Leer SMS y mensajería es intrusivo y regulado; exige consentimiento granular, procesamiento mínimo y una explicación honesta.</li>
+  <li><strong>Exclusión inversa.</strong> Un producto «para mayores» puede resultar infantilizante. El tono debe ser adulto y sobrio, nunca condescendiente.</li>
+</ol>
+
+<h2>9. Supuestos</h2>
+<ul>
+  <li>La persona usa un computador de escritorio con teclado y ratón, y prefiere pantallas amplias a móvil.</li>
+  <li>Existe al menos un familiar dispuesto a participar, pero el producto debe funcionar completo aunque no exista ninguno.</li>
+  <li>La persona mayor conserva capacidad legal y de decisión. El diseño no aborda escenarios de deterioro cognitivo avanzado o tutela: eso exigiría otro marco.</li>
+  <li>Los montos, la moneda y la nómina se representan de forma genérica; no reflejan la normativa de ningún país concreto.</li>
+  <li>La detección de fraude requiere consentimiento explícito y puede desactivarse.</li>
+</ul>
+
+<h2>10. Limitaciones del prototipo</h2>
+<ul>
+  <li>Es un wireframe navegable, no un producto: no hay backend, ni cuentas, ni pagos, ni credenciales.</li>
+  <li>Los datos son ficticios (María Rodríguez, Ana Rodríguez, Laura Gómez, Banco Seguro) y los saldos no se recalculan al «pagar».</li>
+  <li>El asistente responde con textos preescritos; no es un modelo real.</li>
+  <li>No hay estados de error de red, sesiones ni multi-dispositivo.</li>
+  <li>Está deliberadamente sin diseño visual: escala de grises, sin marca, sin ilustración. Cualquier juicio estético debe posponerse.</li>
+  <li>No se han validado los textos con usuarias reales, que es justamente el siguiente paso.</li>
+</ul>
+
+<h2>11. Próximos pasos hacia un producto real</h2>
+<ol>
+  <li><strong>Pruebas de usabilidad</strong> con 8–12 personas de 65+ años y 4–6 familiares, midiendo los 14 criterios de éxito (¿entiende cuánto tiene, qué debe pagar, por qué algo fue bloqueado, cómo pedir ayuda?).</li>
+  <li><strong>Prueba de comprensión del lenguaje</strong> por separado: leer las pantallas en voz alta y pedir que las expliquen con sus palabras.</li>
+  <li><strong>Definir el modelo de permisos</strong> como especificación técnica: matriz rol × acción × límite × caducidad × trazabilidad.</li>
+  <li><strong>Diseñar el motor de reglas antifraude</strong> con umbrales, tasa de falsos positivos aceptable y proceso de apelación.</li>
+  <li><strong>Marco legal y de privacidad:</strong> consentimiento para análisis de mensajería, normativa de empleo doméstico, requisitos de entidad de pago o alianza con una.</li>
+  <li><strong>Protocolo de conserjería humana:</strong> guiones, verificación de identidad, límites duros, grabación y auditoría.</li>
+  <li><strong>Accesibilidad formal:</strong> auditoría WCAG 2.2 AA, lectores de pantalla, navegación completa por teclado, tamaños mínimos de objetivo táctil.</li>
+  <li><strong>Protocolo de abuso financiero cercano:</strong> detección, escalamiento y vías de ayuda independientes de la familia.</li>
+  <li><strong>Solo entonces</strong>, subir la fidelidad visual: tipografía, jerarquía, sistema de componentes y marca.</li>
+</ol>
+
+<h2>12. Criterio de éxito</h2>
+<p>El prototipo funciona si una persona mayor, sola frente a la pantalla, puede responder: cuánto dinero tiene, qué tiene que pagar, qué está pendiente, si algo es sospechoso, por qué algo fue bloqueado, cómo pedir ayuda, qué puede hacer cada familiar, qué puede hacer el cuidador, cómo controlar su tarjeta, cómo continuar más tarde, cómo hablar con una persona, cómo usar el asistente y qué ocurrió con cada movimiento.</p>
+<p style="font-size:22px;border:2px solid #000;padding:20px;">«Esto es mi dinero. Yo tengo el control. El sistema me ayuda a estar segura.»</p>
+
+</div>
+</div>
+</div><!-- /vista doc -->
+
+<script>
+function verVista(cual, btn){
+  document.querySelectorAll('.vista').forEach(function(v){v.classList.remove('activa');});
+  document.getElementById('vista-'+cual).classList.add('activa');
+  document.querySelectorAll('.conmutador button').forEach(function(b){b.setAttribute('aria-selected','false');});
+  btn.setAttribute('aria-selected','true');
+  window.scrollTo(0,0);
+}
+
+function ir(id){
+  var destino = document.getElementById('p-'+id);
+  if(!destino) return;
+  document.querySelectorAll('.pantalla').forEach(function(p){p.classList.remove('activa');});
+  destino.classList.add('activa');
+  var nav = destino.getAttribute('data-nav');
+  document.querySelectorAll('nav.lateral button').forEach(function(b){
+    b.setAttribute('aria-current', b.getAttribute('data-nav')===nav ? 'true' : 'false');
+  });
+  window.scrollTo(0,0);
+}
+
+var PAGOS = {
+  luz:      {titulo:'Pago de energía del hogar', dest:'Empresa de Energía del Sur', monto:'$180.000', cuando:'Hoy, 12 de agosto, en cuanto usted confirme', habitual:'Sí. Usted paga a este destinatario todos los meses desde 2022.', riesgo:'No detectamos señales de riesgo en este pago.'},
+  agua:     {titulo:'Pago de agua', dest:'Acueducto Municipal', monto:'$90.000', cuando:'Hoy, 12 de agosto, en cuanto usted confirme', habitual:'Sí. Es un pago mensual habitual.', riesgo:'No detectamos señales de riesgo. Este pago quedó guardado el 9 de agosto y lo está retomando ahora.'},
+  seguro:   {titulo:'Pago del seguro de salud', dest:'Salud Tranquila (ficticio)', monto:'$320.000', cuando:'Hoy, 12 de agosto, en cuanto usted confirme', habitual:'Sí. Mismo monto que los últimos 12 meses.', riesgo:'Ninguna. Este pago fue preparado por Ana Rodríguez el 9 de agosto y espera su confirmación.'},
+  arriendo: {titulo:'Pago del arriendo', dest:'Inmobiliaria del Parque (ficticia)', monto:'$1.200.000', cuando:'Hoy, 12 de agosto, en cuanto usted confirme', habitual:'Sí. Pago mensual desde 2019.', riesgo:'No detectamos señales de riesgo en este pago.'}
+};
+
+function prepararPago(clave){
+  var p = PAGOS[clave] || PAGOS.luz;
+  document.getElementById('rev-titulo').textContent = p.titulo;
+  document.getElementById('rev-destinatario').textContent = p.dest;
+  document.getElementById('rev-monto').textContent = p.monto;
+  document.getElementById('rev-cuando').textContent = p.cuando;
+  document.getElementById('rev-habitual').textContent = p.habitual;
+  document.getElementById('rev-riesgo').textContent = p.riesgo;
+  document.getElementById('comp-titulo').textContent = p.titulo;
+  document.getElementById('comp-destinatario').textContent = p.dest;
+  document.getElementById('comp-monto').textContent = p.monto;
+  ir('pagos-revisar');
+}
+
+function guardarLimite(){
+  var sel = document.querySelector('input[name="ld"]:checked');
+  var valor = sel ? sel.value : '100.000';
+  if(valor === 'otro') valor = '150.000';
+  document.getElementById('lim-diario').textContent = '$ ' + valor;
+  document.getElementById('ok-limite').textContent = '$' + valor;
+  ir('tarjeta-limites-ok');
+}
+
+var RESPUESTAS = {
+  '¿Cuánto tengo que pagar este mes?': {
+    texto:'Este mes tienes 5 pagos pendientes por un total de $1.850.000. El más cercano es la energía, que vence el 15 de agosto.',
+    botones:[['PAGAR LA ENERGÍA',"prepararPago('luz')",true],['REVISAR TODOS LOS PAGOS',"ir('pagos')",false],['NO HACER NADA',"ir('inicio')",false]]
+  },
+  '¿Puedo pagar la luz?': {
+    texto:'Sí. El pago de energía habitual es de $180.000 y vence el 15 de agosto. Le prepararé el pago y usted lo revisa antes de confirmarlo.',
+    botones:[['PAGAR',"prepararPago('luz')",true],['REVISAR',"ir('pagos')",false],['NO HACER NADA',"ir('inicio')",false]]
+  },
+  '¿Qué pasó con la transferencia de $2.500.000?': {
+    texto:'Esa transferencia a Juan Pérez está detenida en la Zona segura porque es un destinatario nuevo. El dinero no ha salido de su cuenta y usted decide si la confirma o la cancela.',
+    botones:[['VER LA OPERACIÓN',"ir('seguridad-zona')",true],['HABLAR CON UNA PERSONA',"ir('ayuda-persona')",false],['NO HACER NADA',"ir('inicio')",false]]
+  },
+  '¿Qué puede ver mi hija Ana?': {
+    texto:'Ana puede ver los movimientos que usted autorizó, recibir alertas de seguridad y preparar pagos de hasta $200.000. No puede enviar dinero, ni cambiar sus límites, ni ver sus códigos.',
+    botones:[['VER SUS PERMISOS',"ir('familia')",true],['CAMBIAR SUS PERMISOS',"ir('familia-conceder')",false],['NO HACER NADA',"ir('inicio')",false]]
+  }
+};
+
+function responder(preg){
+  var campo = document.getElementById('pregunta');
+  if(preg){ campo.value = preg; } else { preg = campo.value; }
+  var r = RESPUESTAS[preg];
+  var texto = document.getElementById('respuesta-texto');
+  var cont = document.getElementById('respuesta-botones');
+  if(r){
+    texto.textContent = r.texto;
+    cont.innerHTML = '';
+    r.botones.forEach(function(b){
+      var el = document.createElement('button');
+      el.className = 'btn' + (b[2] ? ' btn-principal' : '');
+      el.textContent = b[0];
+      el.setAttribute('onclick', b[1]);
+      cont.appendChild(el);
+    });
+  } else {
+    texto.textContent = 'No estoy seguro de haber entendido la pregunta. Puedo mostrarle sus pagos del mes, o puede hablar con una persona que le ayude.';
+    cont.innerHTML = '<button class="btn btn-principal" onclick="ir(\'pagos\')">VER MIS PAGOS</button><button class="btn" onclick="ir(\'ayuda-persona\')">HABLAR CON UNA PERSONA</button><button class="btn" onclick="ir(\'inicio\')">NO HACER NADA</button>';
+  }
+}
+
+document.querySelector('nav.lateral button[data-nav="inicio"]').setAttribute('aria-current','true');
+</script>
+</body>
+</html>
